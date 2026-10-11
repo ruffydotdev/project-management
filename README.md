@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # EMPMS — Employee & Project Management System
 
 Production-ready, full-stack Employee & Project Management System built with the **MERN** stack (MongoDB, Express, React, Node.js), TypeScript, SCSS, and Redux Toolkit, adhering to a dark, minimal SaaS dashboard design system with vibrant lime accents.
@@ -129,3 +130,6 @@ npm run build    # Compiles TypeScript and builds production bundles
 
 ### Dashboard
 - `GET /api/dashboard/stats` — Real-time metrics and weekly velocity telemetry scoped to user role
+=======
+# project-management
+>>>>>>> 654644db55f653577c0750910485e9b4730a83b0
