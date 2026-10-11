@@ -3,6 +3,8 @@
 .layoutWrapper {
   display: flex;
   min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100svh;
   width: 100%;
   background-color: var(--bg-main);
   overflow-x: hidden;
@@ -41,6 +43,8 @@
 
 .loadingScreen {
   min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
