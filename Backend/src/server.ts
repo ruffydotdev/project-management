@@ -12,7 +12,7 @@ import { errorHandler } from "./middlewares/errorMiddleware.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5555;
 
 // Connect to MongoDB
 connectDB();
