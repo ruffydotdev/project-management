@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
-import api, { setAccessToken, setAuthTokens, clearAuthTokens } from "../../../utils/api";
+import api, { setAuthTokens, clearAuthTokens } from "../../../utils/api";
 import type { UserRole } from "../../../lib/data/enums";
 
 export interface User {
@@ -35,13 +35,12 @@ const initialState: AuthState = {
   verificationEmail: null,
 };
 
-// Check current session via refresh token on app mount (relies on HttpOnly cookie)
+// Check current session on app mount via authenticated /auth/me endpoint.
+// If accessToken is expired or missing, Axios interceptor will automatically trigger /auth/refresh and retry!
 export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.post("/auth/refresh");
-    const { accessToken, user } = response.data.data;
-    setAccessToken(accessToken);
-    return user;
+    const response = await api.get("/auth/me");
+    return response.data.data.user;
   } catch (err: any) {
     clearAuthTokens();
     return rejectWithValue(err.response?.data?.message || "Session not found");
