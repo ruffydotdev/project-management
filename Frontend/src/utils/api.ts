@@ -120,14 +120,13 @@ api.interceptors.response.use(
         );
 
         const newAccessToken = refreshResponse.data?.data?.accessToken;
-        const newRefreshToken = refreshResponse.data?.data?.refreshToken;
 
         if (!newAccessToken) {
           throw new Error("No access token returned from refresh endpoint");
         }
 
-        // Store new access and refresh tokens in storage & cookies
-        setAuthTokens(newAccessToken, newRefreshToken);
+        // Store new access token in memory
+        setAccessToken(newAccessToken);
 
         // Resume all queued concurrent requests with the new access token
         processQueue(null, newAccessToken);

@@ -360,19 +360,16 @@ export const refresh = async (req, res, next) => {
       });
     }
 
-    // Generate new stateless access token and rotated refresh token
+    // Generate ONLY a new access token (refresh token is only generated during login)
     const newAccessToken = generateAccessToken(user);
-    const newRefreshToken = generateRefreshToken(user);
 
     res.cookie("accessToken", newAccessToken, getAccessTokenCookieOptions());
-    res.cookie("refreshToken", newRefreshToken, getRefreshTokenCookieOptions());
 
     return res.status(200).json({
       success: true,
       message: "Token refreshed successfully",
       data: {
         accessToken: newAccessToken,
-        refreshToken: newRefreshToken,
         user: user.toSafeObject(),
       },
     });
