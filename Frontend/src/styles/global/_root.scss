@@ -52,3 +52,25 @@
 
   --transition-fast: #{cfg.$transition-speed};
 }
+
+@media (max-width: 768px) {
+  :root {
+    --space-xs: 6px;
+    --space-sm: 10px;
+    --space-md: 12px;
+    --space-lg: 18px;
+    --space-xl: 24px;
+    --space-xxl: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --space-xs: 5px;
+    --space-sm: 8px;
+    --space-md: 10px;
+    --space-lg: 14px;
+    --space-xl: 18px;
+    --space-xxl: 22px;
+  }
+}

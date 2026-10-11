@@ -20,11 +20,24 @@
     color: var(--text-primary);
     letter-spacing: -0.5px;
     margin-bottom: 4px;
+
+    @media (max-width: 768px) {
+      font-size: 22px;
+      letter-spacing: -0.3px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 19px;
+    }
   }
 
   .subtitle {
     font-size: 14px;
     color: var(--text-secondary);
+
+    @media (max-width: 768px) {
+      font-size: 12.5px;
+    }
   }
 }
 
@@ -40,12 +53,22 @@
   flex-wrap: wrap;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(12px);
+  min-width: 0;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    gap: 16px;
+  }
 }
 
 .avatarSection {
   display: flex;
   align-items: center;
   gap: 20px;
+
+  @media (max-width: 480px) {
+    gap: 14px;
+  }
 }
 
 .largeAvatar {
@@ -61,22 +84,38 @@
   font-weight: 700;
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
   border: 3px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+  }
 }
 
 .identityInfo {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
 
   .userName {
     font-size: 20px;
     font-weight: 700;
     color: var(--text-primary);
+
+    @media (max-width: 768px) {
+      font-size: 17px;
+    }
   }
 
   .userEmail {
     font-size: 13px;
     color: var(--text-secondary);
+
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
   }
 
   .badges {

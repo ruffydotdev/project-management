@@ -5,6 +5,12 @@
   flex-direction: column;
   gap: 24px;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
 }
 
 .header {
@@ -13,6 +19,10 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
 }
 
 .title {
@@ -20,12 +30,30 @@
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.5px;
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+    letter-spacing: -0.3px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 19px;
+  }
 }
 
 .subtitle {
   font-size: 14px;
   color: var(--text-secondary);
   margin-top: 4px;
+
+  @media (max-width: 768px) {
+    font-size: 12.5px;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 11.5px;
+  }
 }
 
 /* Toolbar */
@@ -35,6 +63,12 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
 }
 
 .searchWrapper {
@@ -50,6 +84,12 @@
 
   &:focus-within {
     border-color: var(--primary-accent);
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    height: 38px;
+    padding: 0 12px;
   }
 }
 
@@ -69,6 +109,10 @@
   &::placeholder {
     color: var(--text-tertiary);
   }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .selectFilters {
@@ -76,10 +120,21 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: 8px;
+  }
 }
 
 .filterSelect {
   width: 170px;
+
+  @media (max-width: 768px) {
+    flex: 1;
+    min-width: 130px;
+    width: auto;
+  }
 }
 
 /* Table Card */
@@ -88,11 +143,14 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
 }
 
 .tableResponsive {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
@@ -108,6 +166,11 @@
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-color);
     white-space: nowrap;
+
+    @media (max-width: 768px) {
+      padding: 10px 14px;
+      font-size: 11.5px;
+    }
   }
 
   td {
@@ -115,6 +178,11 @@
     border-bottom: 1px solid var(--border-color);
     color: var(--text-primary);
     vertical-align: middle;
+
+    @media (max-width: 768px) {
+      padding: 12px 14px;
+      font-size: 12px;
+    }
   }
 
   tr:last-child td {
