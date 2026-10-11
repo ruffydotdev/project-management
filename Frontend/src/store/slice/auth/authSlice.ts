@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
-import api, { setAuthTokens, clearAuthTokens, getRefreshToken } from "../../../utils/api";
+import api, { setAccessToken, setAuthTokens, clearAuthTokens } from "../../../utils/api";
 import type { UserRole } from "../../../lib/data/enums";
 
 export interface User {
@@ -35,15 +35,12 @@ const initialState: AuthState = {
   verificationEmail: null,
 };
 
-// Check current session via refresh token on app mount
+// Check current session via refresh token on app mount (relies on HttpOnly cookie)
 export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { rejectWithValue }) => {
   try {
-    const currentRefreshToken = getRefreshToken();
-    const response = await api.post("/auth/refresh", {
-      refreshToken: currentRefreshToken,
-    });
-    const { accessToken, refreshToken, user } = response.data.data;
-    setAuthTokens(accessToken, refreshToken);
+    const response = await api.post("/auth/refresh");
+    const { accessToken, user } = response.data.data;
+    setAccessToken(accessToken);
     return user;
   } catch (err: any) {
     clearAuthTokens();

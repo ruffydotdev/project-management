@@ -31,12 +31,13 @@ const getRefreshTokenCookieOptions = () => ({
   path: "/",
 });
 
-// Clear cookie options without maxAge (avoids Express deprecation notice)
+// Clear cookie options (must match set options path, secure, and sameSite to clear properly across all browsers)
 const getClearCookieOptions = (httpOnly = true) => ({
   httpOnly,
   secure: isProduction,
   sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
   path: "/",
+  expires: new Date(0), // Set epoch to ensure removal in legacy and modern browsers
 });
 
 // POST /api/auth/register

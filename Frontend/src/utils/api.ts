@@ -3,107 +3,36 @@ import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5555/api";
 console.log("[EMPMS API Client] Active Base URL:", API_BASE_URL);
 
-// Helper function to read cookie value by name
-export const getCookie = (name: string): string | null => {
-  if (typeof document === "undefined") return null;
-  const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
-  return match ? decodeURIComponent(match[3]) : null;
-};
-
-// Helper function to set cookie on client
-export const setCookie = (name: string, value: string, maxAgeSeconds: number) => {
-  if (typeof document === "undefined") return;
-  const secure = window.location.protocol === "https:" ? "; Secure" : "";
-  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAgeSeconds}; SameSite=Lax${secure}`;
-};
-
-// Helper function to remove client cookie
-export const removeCookie = (name: string) => {
-  if (typeof document === "undefined") return;
-  document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
-};
-
-// In-memory access token storage initialized from cookie or localStorage backup
-let memoryAccessToken: string | null =
-  typeof window !== "undefined"
-    ? getCookie("accessToken") || localStorage.getItem("empms_access_token")
-    : null;
-
-let memoryRefreshToken: string | null =
-  typeof window !== "undefined"
-    ? getCookie("refreshToken") || localStorage.getItem("empms_refresh_token")
-    : null;
+// In-memory access token storage (populated on login/refresh from response for Authorization header)
+let memoryAccessToken: string | null = null;
 
 export const setAccessToken = (token: string | null) => {
   memoryAccessToken = token;
-  if (typeof window !== "undefined") {
-    if (token) {
-      setCookie("accessToken", token, 15 * 60); // 15 minutes
-      localStorage.setItem("empms_access_token", token);
-    } else {
-      removeCookie("accessToken");
-      localStorage.removeItem("empms_access_token");
-    }
-  }
 };
 
-export const setRefreshToken = (token: string | null) => {
-  memoryRefreshToken = token;
-  if (typeof window !== "undefined") {
-    if (token) {
-      // If refreshToken is sent in response body, keep client cookie / storage updated
-      setCookie("refreshToken", token, 7 * 24 * 60 * 60); // 7 days
-      localStorage.setItem("empms_refresh_token", token);
-    } else {
-      removeCookie("refreshToken");
-      localStorage.removeItem("empms_refresh_token");
-    }
-  }
+export const setRefreshToken = (_token: string | null) => {
+  // Refresh token is managed securely and exclusively via HttpOnly cookie set/cleared by backend
 };
 
-export const setAuthTokens = (accessToken: string | null, refreshToken?: string | null) => {
+export const setAuthTokens = (accessToken: string | null, _refreshToken?: string | null) => {
   setAccessToken(accessToken);
-  if (refreshToken !== undefined) {
-    setRefreshToken(refreshToken);
-  }
 };
 
 export const clearAuthTokens = () => {
   setAccessToken(null);
-  setRefreshToken(null);
+  // Clear any residual legacy localStorage tokens if present
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("empms_access_token");
+    localStorage.removeItem("empms_refresh_token");
+  }
 };
 
 export const getAccessToken = (): string | null => {
-  if (memoryAccessToken) return memoryAccessToken;
-  if (typeof window !== "undefined") {
-    const fromCookie = getCookie("accessToken");
-    if (fromCookie) {
-      memoryAccessToken = fromCookie;
-      return fromCookie;
-    }
-    const fromStorage = localStorage.getItem("empms_access_token");
-    if (fromStorage) {
-      memoryAccessToken = fromStorage;
-      return fromStorage;
-    }
-  }
-  return null;
+  return memoryAccessToken;
 };
 
 export const getRefreshToken = (): string | null => {
-  if (memoryRefreshToken) return memoryRefreshToken;
-  if (typeof window !== "undefined") {
-    const fromCookie = getCookie("refreshToken");
-    if (fromCookie) {
-      memoryRefreshToken = fromCookie;
-      return fromCookie;
-    }
-    const fromStorage = localStorage.getItem("empms_refresh_token");
-    if (fromStorage) {
-      memoryRefreshToken = fromStorage;
-      return fromStorage;
-    }
-  }
+  // Handled automatically by browser via withCredentials cookies
   return null;
 };
 
@@ -183,15 +112,11 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const currentRefreshToken = getRefreshToken();
-        // Request refreshed tokens via backend refresh endpoint
+        // Request refreshed tokens via backend refresh endpoint using withCredentials (HttpOnly cookie)
         const refreshResponse = await axios.post(
           `${API_BASE_URL}/auth/refresh`,
-          { refreshToken: currentRefreshToken },
-          {
-            withCredentials: true,
-            headers: currentRefreshToken ? { "x-refresh-token": currentRefreshToken } : undefined,
-          }
+          {},
+          { withCredentials: true }
         );
 
         const newAccessToken = refreshResponse.data?.data?.accessToken;
