@@ -17,7 +17,7 @@ const updateAllPasswords = async () => {
     const result = await User.updateMany({}, { $set: { password: hashedPassword } });
     console.log(`[Password Reset] Successfully updated ${result.modifiedCount} users to password: '${universalPassword}'.`);
 
-    // Print all users and their emails for quick testing
+    
     const users = await User.find({}, "name email role");
     console.log("\n--- Active Accounts with Password: Password@123 ---");
     users.forEach((u) => console.log(`• [${u.role.toUpperCase()}] ${u.name} -> ${u.email}`));

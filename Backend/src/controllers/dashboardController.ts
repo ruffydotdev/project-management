@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import Project from "../models/Project.js";
 import { ROLES } from "../constants/enums.js";
 
-// GET /api/dashboard/stats
+
 export const getDashboardStats = async (req, res, next) => {
   try {
     const userRole = req.user.role;
@@ -28,7 +28,7 @@ export const getDashboardStats = async (req, res, next) => {
     };
 
     if (userRole === ROLES.OWNER) {
-      // Company-wide stats
+      
       stats.totalEmployees = await User.countDocuments();
       stats.totalProjects = await Project.countDocuments();
       stats.projectsInProgress = await Project.countDocuments({ status: "In Progress" });
@@ -41,7 +41,7 @@ export const getDashboardStats = async (req, res, next) => {
         .sort({ createdAt: -1 })
         .limit(5);
     } else if (userRole === ROLES.PROJECT_MANAGER) {
-      // PM assigned projects
+      
       stats.totalProjects = await Project.countDocuments({ projectManager: userId });
       stats.projectsInProgress = await Project.countDocuments({
         projectManager: userId,
@@ -56,7 +56,7 @@ export const getDashboardStats = async (req, res, next) => {
         status: "Pending",
       });
 
-      // Count distinct team members assigned across PM's projects
+      
       const pmProjects = await Project.find({ projectManager: userId }).select("assignedEmployees");
       const teamSet = new Set();
       pmProjects.forEach((p) => {
@@ -70,7 +70,7 @@ export const getDashboardStats = async (req, res, next) => {
         .sort({ createdAt: -1 })
         .limit(5);
     } else {
-      // Employee assigned projects
+      
       stats.totalProjects = await Project.countDocuments({ assignedEmployees: userId });
       stats.projectsInProgress = await Project.countDocuments({
         assignedEmployees: userId,
@@ -85,7 +85,7 @@ export const getDashboardStats = async (req, res, next) => {
         status: "Pending",
       });
 
-      // Count colleagues
+      
       const empProjects = await Project.find({ assignedEmployees: userId }).select("assignedEmployees");
       const colleagueSet = new Set();
       empProjects.forEach((p) => {

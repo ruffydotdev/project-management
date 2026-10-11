@@ -73,7 +73,7 @@ export const Profile: React.FC = () => {
 
   return (
     <div className={styles.profileContainer}>
-      {/* Header */}
+      {}
       <div className={styles.profileHeader}>
         <div>
           <h1 className={styles.title}>My Profile</h1>
@@ -83,7 +83,7 @@ export const Profile: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Banner Card */}
+      {}
       <div className={styles.bannerCard}>
         <div className={styles.avatarSection}>
           <div className={styles.largeAvatar}>
@@ -121,9 +121,9 @@ export const Profile: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Grid: Employment Meta & Edit Form */}
+      {}
       <div className={styles.contentGrid}>
-        {/* Employment Meta Information (Read Only) */}
+        {}
         <div className={styles.cardSection}>
           <div className={styles.sectionHeader}>
             <Briefcase size={18} />
@@ -174,7 +174,7 @@ export const Profile: React.FC = () => {
           </div>
         </div>
 
-        {/* Editable Profile Details (Name & Phone Number) */}
+        {}
         <div className={styles.cardSection}>
           <div className={styles.sectionHeader}>
             <UserIcon size={18} />
@@ -227,7 +227,7 @@ export const Profile: React.FC = () => {
   );
 };
 
-// Helper for class string
+
 function statStyles(className: string) {
   return className;
 }

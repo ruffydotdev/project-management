@@ -66,7 +66,7 @@ export const VerifyEmail: React.FC = () => {
     try {
       const res = await api.post("/auth/resend-otp", { email: email.trim() });
       setSuccessMsg(res.data.message || "A new code has been sent.");
-      setCooldown(60); // 60 seconds cooldown
+      setCooldown(60); 
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to resend code.");
     } finally {

@@ -77,7 +77,7 @@ export const autoSeedIfEmpty = async (force: boolean = false) => {
     const userCount = await User.countDocuments();
     const projectCount = await Project.countDocuments();
 
-    // If already populated and not forced, keep existing data intact
+    
     if (!force && userCount >= 20 && projectCount >= 40) {
       console.log(`[Database Auto-Seed] Database already populated (${userCount} users, ${projectCount} projects).`);
       return;
@@ -93,7 +93,7 @@ export const autoSeedIfEmpty = async (force: boolean = false) => {
     const defaultPassword = "Password@123";
     const hashedPassword = await hashPassword(defaultPassword);
 
-    // 1. Ensure Owner exists
+    
     let owner = await User.findOne({ role: ROLES.OWNER });
     if (!owner) {
       owner = await User.create({
@@ -110,7 +110,7 @@ export const autoSeedIfEmpty = async (force: boolean = false) => {
       });
     }
 
-    // 2. Ensure PMs exist
+    
     const pmEmails = ["pm.marcus@empms.com", "pm.elena@empms.com", "pm.david@empms.com"];
     const pmPhones = ["+91 98200 22001", "+91 98200 22002", "+91 98200 22003"];
     const pms = [];
@@ -134,7 +134,7 @@ export const autoSeedIfEmpty = async (force: boolean = false) => {
       pms.push(pm);
     }
 
-    // 3. Ensure 20 Employees exist
+    
     const employees = [];
     for (let i = 0; i < 20; i++) {
       const fName = firstNames[i % firstNames.length];
@@ -161,7 +161,7 @@ export const autoSeedIfEmpty = async (force: boolean = false) => {
       employees.push(emp);
     }
 
-    // 4. Ensure 50 Projects exist
+    
     const allManagers = [owner, ...pms];
     const existingProjectCount = await Project.countDocuments();
     if (existingProjectCount < 50) {
@@ -206,7 +206,7 @@ export const autoSeedIfEmpty = async (force: boolean = false) => {
   }
 };
 
-// If run directly from terminal via CLI: `npm run seed`
+
 const isCliRun = process.argv[1]?.replace(/\\/g, "/").endsWith("seed.ts");
 if (isCliRun) {
   const runCli = async () => {
@@ -214,7 +214,7 @@ if (isCliRun) {
       const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/empms_db";
       await mongoose.connect(mongoUri);
       console.log("[Seed CLI] Connected to MongoDB...");
-      await autoSeedIfEmpty(true); // force full re-seed
+      await autoSeedIfEmpty(true); 
       await mongoose.connection.close();
       process.exit(0);
     } catch (e) {

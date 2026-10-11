@@ -115,7 +115,7 @@ const userSchema = new mongoose.Schema<IUser>(
   }
 );
 
-// Method to return safe JSON without sensitive fields
+
 userSchema.methods.toSafeObject = function () {
   const obj = this.toObject();
   delete obj.password;

@@ -57,26 +57,26 @@ export const Projects: React.FC = () => {
   const isPM = currentUser?.role === "project_manager";
   const canManageProjects = isOwner || isPM;
 
-  // Data states
+  
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Available managers & employees for assignments
+  
   const [availableManagers, setAvailableManagers] = useState<UserRef[]>([]);
   const [availableEmployees, setAvailableEmployees] = useState<UserRef[]>([]);
 
-  // Pagination states
+  
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
 
-  // Search & Filter states
+  
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState(initialStatus);
   const [selectedPriority, setSelectedPriority] = useState(initialPriority);
 
-  // Modal states for Create/Edit
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<ProjectItem | null>(null);
   const [modalLoading, setModalLoading] = useState(false);
@@ -93,7 +93,7 @@ export const Projects: React.FC = () => {
     assignedEmployees: [] as string[],
   });
 
-  // Fetch Project Managers and Eligible Employees for Select Dropdowns
+  
   const fetchAssignmentOptions = async () => {
     try {
       const [resPM, resEmp] = await Promise.all([
@@ -136,7 +136,7 @@ export const Projects: React.FC = () => {
     }
   }, [fetchProjects, canManageProjects]);
 
-  // Open modal for Create
+  
   const handleOpenCreate = () => {
     setEditingProject(null);
     setFormData({
@@ -153,7 +153,7 @@ export const Projects: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  // Open modal for Edit
+  
   const handleOpenEdit = (proj: ProjectItem) => {
     setEditingProject(proj);
     setFormData({
@@ -213,7 +213,7 @@ export const Projects: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* Header */}
+      {}
       <div className={styles.header}>
         <div>
           <h1 className={styles.title}>Projects</h1>
@@ -228,7 +228,7 @@ export const Projects: React.FC = () => {
         )}
       </div>
 
-      {/* Filter Toolbar */}
+      {}
       <div className={styles.filterToolbar}>
         <div className={styles.searchWrapper}>
           <Search size={16} className={styles.searchIcon} />
@@ -269,7 +269,7 @@ export const Projects: React.FC = () => {
         </div>
       </div>
 
-      {/* Projects Table */}
+      {}
       <div className={styles.tableCard}>
         <div className={styles.tableResponsive}>
           <table className={styles.table}>
@@ -413,7 +413,7 @@ export const Projects: React.FC = () => {
           </table>
         </div>
 
-        {/* Server-Side Pagination */}
+        {}
         <Pagination
           currentPage={page}
           totalPages={totalPages}
@@ -428,7 +428,7 @@ export const Projects: React.FC = () => {
         />
       </div>
 
-      {/* Modal for Project Create/Edit */}
+      {}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -497,7 +497,7 @@ export const Projects: React.FC = () => {
             />
           </div>
 
-          {/* Project Manager selector (Owner can select PM; PM assigns themselves) */}
+          {}
           {isOwner && (
             <Select
               label="Assign Project Manager"
@@ -508,7 +508,7 @@ export const Projects: React.FC = () => {
             />
           )}
 
-          {/* Assign Team Members Searchable Dropdown */}
+          {}
           <div className={styles.formGroup}>
             <MemberSelectDropdown
               label="Assign Team Members"

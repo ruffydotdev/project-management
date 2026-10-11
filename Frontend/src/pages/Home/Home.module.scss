@@ -78,7 +78,7 @@
   }
 }
 
-/* Metrics Cards Grid */
+
 .metricsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -177,7 +177,7 @@
   }
 }
 
-/* Content Grid: Velocity Chart + Recent Projects */
+
 .contentGrid {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -263,7 +263,7 @@
   }
 }
 
-/* Chart Bars */
+
 .chartBars {
   display: flex;
   align-items: flex-end;
@@ -412,7 +412,7 @@
   }
 }
 
-/* Recent Projects List */
+
 .projectList {
   display: flex;
   flex-direction: column;

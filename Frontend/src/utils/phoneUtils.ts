@@ -1,8 +1,4 @@
-/**
- * Helper utilities for validating and formatting Indian phone numbers.
- * Valid Indian mobile numbers are 10 digits starting with 6, 7, 8, or 9,
- * optionally prefixed with +91, 91, or 0.
- */
+
 
 export const validateIndianPhoneNumber = (phone: string): boolean => {
   if (!phone || typeof phone !== "string") return false;

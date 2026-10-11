@@ -12,35 +12,35 @@ import {
 import { sendOTPEmail } from "../services/emailService.js";
 import { validateRegisterInput, validateEmail, validateIndianPhoneNumber, formatIndianPhoneNumber } from "../utils/validators.js";
 
-// Cookie configuration for tokens
+
 const isProduction = process.env.NODE_ENV === "production";
 
 const getAccessTokenCookieOptions = () => ({
-  httpOnly: false, // Accessible to JS client for Authorization header extraction if needed
+  httpOnly: false, 
   secure: isProduction,
   sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
-  maxAge: 15 * 60 * 1000, // 15 minutes (matches access token expiry)
+  maxAge: 15 * 60 * 1000, 
   path: "/",
 });
 
 const getRefreshTokenCookieOptions = () => ({
-  httpOnly: true, // Secure HttpOnly for maximum protection against XSS
+  httpOnly: true, 
   secure: isProduction,
   sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  maxAge: 7 * 24 * 60 * 60 * 1000, 
   path: "/",
 });
 
-// Clear cookie options (must match set options path, secure, and sameSite to clear properly across all browsers)
+
 const getClearCookieOptions = (httpOnly = true) => ({
   httpOnly,
   secure: isProduction,
   sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
   path: "/",
-  expires: new Date(0), // Set epoch to ensure removal in legacy and modern browsers
+  expires: new Date(0), 
 });
 
-// POST /api/auth/register
+
 export const register = async (req, res, next) => {
   try {
     const errors = validateRegisterInput(req.body);
@@ -64,7 +64,7 @@ export const register = async (req, res, next) => {
 
     const normalizedEmail = email.trim().toLowerCase();
 
-    // Check existing email
+    
     const existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser) {
       return res.status(409).json({
@@ -77,9 +77,9 @@ export const register = async (req, res, next) => {
     const hashedPassword = await hashPassword(password);
     const otp = generateOTP();
     const hashedOTP = hashToken(otp);
-    const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+    const otpExpires = new Date(Date.now() + 10 * 60 * 1000); 
 
-    // Create user with forced 'employee' role (public registration must never grant privileged role)
+    
     const newUser = await User.create({
       name: name.trim(),
       email: normalizedEmail,
@@ -96,7 +96,7 @@ export const register = async (req, res, next) => {
       emailVerificationLastSentAt: new Date(),
     });
 
-    // Send OTP via email
+    
     await sendOTPEmail(normalizedEmail, otp);
 
     return res.status(201).json({
@@ -112,7 +112,7 @@ export const register = async (req, res, next) => {
   }
 };
 
-// POST /api/auth/verify-email
+
 export const verifyEmail = async (req, res, next) => {
   try {
     const { email, otp } = req.body;
@@ -165,7 +165,7 @@ export const verifyEmail = async (req, res, next) => {
       });
     }
 
-    // Mark verified and clear OTP fields
+    
     user.isVerified = true;
     user.emailVerificationOTP = undefined;
     user.emailVerificationOTPExpires = undefined;
@@ -181,7 +181,7 @@ export const verifyEmail = async (req, res, next) => {
   }
 };
 
-// POST /api/auth/resend-otp
+
 export const resendOTP = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -198,7 +198,7 @@ export const resendOTP = async (req, res, next) => {
       "+emailVerificationLastSentAt"
     );
 
-    // Generic response if user not found to prevent enumeration
+    
     if (!user) {
       return res.status(200).json({
         success: true,
@@ -213,7 +213,7 @@ export const resendOTP = async (req, res, next) => {
       });
     }
 
-    // Cooldown check (60 seconds)
+    
     const COOLDOWN_MS = 60 * 1000;
     if (
       user.emailVerificationLastSentAt &&
@@ -245,7 +245,7 @@ export const resendOTP = async (req, res, next) => {
   }
 };
 
-// POST /api/auth/login
+
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -291,11 +291,11 @@ export const login = async (req, res, next) => {
       });
     }
 
-    // Generate stateless tokens
+    
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
 
-    // Store both tokens in cookies
+    
     res.cookie("accessToken", accessToken, getAccessTokenCookieOptions());
     res.cookie("refreshToken", refreshToken, getRefreshTokenCookieOptions());
 
@@ -313,7 +313,7 @@ export const login = async (req, res, next) => {
   }
 };
 
-// POST /api/auth/refresh (Stateless: decode and verify JWT, grant new access token)
+
 export const refresh = async (req, res, next) => {
   try {
     const refreshToken =
@@ -328,7 +328,7 @@ export const refresh = async (req, res, next) => {
       });
     }
 
-    // Decode and verify refresh token cryptographically
+    
     const decoded = verifyRefreshToken(refreshToken);
 
     if (!decoded || !decoded.id) {
@@ -360,7 +360,7 @@ export const refresh = async (req, res, next) => {
       });
     }
 
-    // Generate ONLY a new access token (refresh token is only generated during login)
+    
     const newAccessToken = generateAccessToken(user);
 
     res.cookie("accessToken", newAccessToken, getAccessTokenCookieOptions());
@@ -378,7 +378,7 @@ export const refresh = async (req, res, next) => {
   }
 };
 
-// POST /api/auth/logout
+
 export const logout = async (req, res, next) => {
   try {
     res.clearCookie("accessToken", getClearCookieOptions(false));
@@ -393,7 +393,7 @@ export const logout = async (req, res, next) => {
   }
 };
 
-// GET /api/auth/me
+
 export const getMe = async (req, res, next) => {
   try {
     return res.status(200).json({
@@ -407,7 +407,7 @@ export const getMe = async (req, res, next) => {
   }
 };
 
-// PUT /api/auth/me (User updates their own details: name, phoneNumber)
+
 export const updateProfile = async (req, res, next) => {
   try {
     const { name, phoneNumber } = req.body;

@@ -14,13 +14,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5555;
 
-// Required on Render / cloud proxies so Express recognizes HTTPS for secure cookies
+
 app.set("trust proxy", 1);
 
-// Connect to MongoDB
+
 connectDB();
 
-// CORS Configuration
+
 const rawOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
@@ -36,7 +36,7 @@ const normalizedOrigins = rawOrigins.map((url) => url.replace(/\/+$/, "").toLowe
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, or server-to-server)
+      
       if (!origin) return callback(null, true);
       
       const cleanOrigin = origin.replace(/\/+$/, "").toLowerCase();
@@ -54,12 +54,12 @@ app.use(
   })
 );
 
-// Body parsers
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Health Check Endpoint
+
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     status: "ok",
@@ -68,13 +68,13 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Mount modular API routes
+
 app.use("/api/auth", authRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
-// Centralized error handler
+
 app.use(errorHandler);
 
 app.listen(PORT, () => {

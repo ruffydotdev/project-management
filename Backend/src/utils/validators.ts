@@ -1,6 +1,6 @@
 import { DEPARTMENTS, DESIGNATIONS } from "../constants/enums.js";
 
-// Strong password check: min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
+
 export const validatePasswordStrength = (password) => {
   if (!password || typeof password !== "string") return false;
   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#()_+=\-[\]{}|;:,.<>~`])[A-Za-z\d@$!%*?&^#()_+=\-[\]{}|;:,.<>~`]{8,}$/;
@@ -12,7 +12,7 @@ export const validateEmail = (email) => {
   return /^\S+@\S+\.\S+$/.test(email.trim());
 };
 
-// Validate Indian mobile numbers (+91 optional, 10 digits starting with 6, 7, 8, or 9)
+
 export const validateIndianPhoneNumber = (phone: string) => {
   if (!phone || typeof phone !== "string") return false;
   const cleaned = phone.replace(/[\s\-()]/g, "");
@@ -23,7 +23,7 @@ export const validateIndianPhoneNumber = (phone: string) => {
 export const formatIndianPhoneNumber = (phone: string) => {
   if (!phone) return phone;
   const cleaned = phone.replace(/[\s\-()]/g, "");
-  // Extract 10 digits
+  
   const match = cleaned.match(/(?:(?:\+91|91|0))?([6-9]\d{9})$/);
   if (match) {
     const num = match[1];

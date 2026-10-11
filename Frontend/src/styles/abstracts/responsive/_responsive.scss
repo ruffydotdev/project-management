@@ -1,4 +1,4 @@
-// Responsive Function........
+
 @mixin smallDevice {
   @media (max-width: 300px) {
     @content;
@@ -23,7 +23,7 @@
   }
 }
 
-// Between Function........
+
 
 @mixin range($min, $max) {
   @media (min-width: $min) and (max-width: $max) {
@@ -32,7 +32,7 @@
 }
 
 
-// let's Work out with the Advanced Mixin Responsive function....
+
 @mixin responsive($size, $type: max, $max-width: null) {
   @if $type == max {
     @media (max-width:$size) {

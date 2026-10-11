@@ -45,22 +45,22 @@ export const Employees: React.FC = () => {
   const isPM = currentUser?.role === "project_manager";
   const canEdit = isOwner || isPM;
 
-  // Data states
+  
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Pagination states
+  
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
 
-  // Search & Filter states
+  
   const [search, setSearch] = useState("");
   const [selectedDept, setSelectedDept] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
 
-  // Modal states for Create/Edit
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
   const [modalLoading, setModalLoading] = useState(false);
@@ -104,7 +104,7 @@ export const Employees: React.FC = () => {
     fetchEmployees();
   }, [fetchEmployees]);
 
-  // Open modal for Create
+  
   const handleOpenCreate = () => {
     setEditingEmployee(null);
     setFormData({
@@ -122,13 +122,13 @@ export const Employees: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  // Open modal for Edit
+  
   const handleOpenEdit = (emp: Employee) => {
     setEditingEmployee(emp);
     setFormData({
       name: emp.name,
       email: emp.email,
-      password: "", // Optional on edit
+      password: "", 
       role: emp.role,
       phoneNumber: emp.phoneNumber,
       designation: emp.designation,
@@ -165,12 +165,12 @@ export const Employees: React.FC = () => {
 
     try {
       if (editingEmployee) {
-        // Edit flow
+        
         const updatePayload: any = { ...formData };
         if (!updatePayload.password) delete updatePayload.password;
         await api.put(`/employees/${editingEmployee._id}`, updatePayload);
       } else {
-        // Create flow
+        
         await api.post("/employees", formData);
       }
       setIsModalOpen(false);
@@ -186,7 +186,7 @@ export const Employees: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* Header */}
+      {}
       <div className={styles.header}>
         <div>
           <h1 className={styles.title}>Employee Directory</h1>
@@ -201,7 +201,7 @@ export const Employees: React.FC = () => {
         )}
       </div>
 
-      {/* Filter Toolbar */}
+      {}
       <div className={styles.filterToolbar}>
         <div className={styles.searchWrapper}>
           <Search size={16} className={styles.searchIcon} />
@@ -242,7 +242,7 @@ export const Employees: React.FC = () => {
         </div>
       </div>
 
-      {/* Table Card */}
+      {}
       <div className={styles.tableCard}>
         <div className={styles.tableResponsive}>
           <table className={styles.table}>
@@ -351,7 +351,7 @@ export const Employees: React.FC = () => {
           </table>
         </div>
 
-        {/* Server-Side Pagination */}
+        {}
         <Pagination
           currentPage={page}
           totalPages={totalPages}
@@ -366,7 +366,7 @@ export const Employees: React.FC = () => {
         />
       </div>
 
-      {/* Modal for Create/Edit */}
+      {}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -393,7 +393,7 @@ export const Employees: React.FC = () => {
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              disabled={!!editingEmployee} // Email immutable once registered
+              disabled={!!editingEmployee} 
               required
             />
           </div>

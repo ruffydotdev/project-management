@@ -11,7 +11,7 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    // Attempt session restoration on application startup
+    
     dispatch(checkAuth());
   }, [dispatch]);
 

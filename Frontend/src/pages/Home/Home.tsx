@@ -49,7 +49,7 @@ export const Home: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* Top Banner / Welcome Header */}
+      {}
       <div className={styles.pageHeader}>
         <div>
           <h1 className={styles.title}>
@@ -76,7 +76,7 @@ export const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Metric Cards Grid */}
+      {}
       <div className={styles.metricsGrid}>
         <div
           className={styles.metricCard}
@@ -161,9 +161,9 @@ export const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Dashboard Visual Sections */}
+      {}
       <div className={styles.contentGrid}>
-        {/* Left Column: Activity & Telemetry Heatmap (Inspired by Loud UI) */}
+        {}
         <div className={styles.telemetryCard}>
           <div className={styles.sectionHeader}>
             <div>
@@ -217,7 +217,7 @@ export const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column: Recent Projects Table */}
+        {}
         <div className={styles.recentProjectsCard}>
           <div className={styles.sectionHeader}>
             <div>

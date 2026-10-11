@@ -5,7 +5,7 @@ import { ROLES, DEPARTMENTS, DESIGNATIONS, USER_STATUSES } from "../constants/en
 import { hashPassword } from "../utils/tokenUtils.js";
 import { validatePasswordStrength, validateEmail, validateIndianPhoneNumber, formatIndianPhoneNumber } from "../utils/validators.js";
 
-// GET /api/employees
+
 export const getEmployees = async (req, res, next) => {
   try {
     const {
@@ -26,11 +26,11 @@ export const getEmployees = async (req, res, next) => {
 
     const query: Record<string, any> = {};
 
-    // Role-based visibility scoping
+    
     if (req.user.role === ROLES.OWNER) {
-      // Owner sees all
+      
     } else if (req.user.role === ROLES.PROJECT_MANAGER) {
-      // PM sees themselves and employees who are assigned to PM's projects
+      
       const myProjects = await Project.find({ projectManager: req.user._id }).select("assignedEmployees");
       const assignedEmployeeIds = new Set<string>();
       assignedEmployeeIds.add(req.user._id.toString());
@@ -39,7 +39,7 @@ export const getEmployees = async (req, res, next) => {
       });
       query._id = { $in: Array.from(assignedEmployeeIds).map((id) => new mongoose.Types.ObjectId(id)) };
     } else {
-      // Employee only sees colleagues on their assigned projects + themselves
+      
       const myProjects = await Project.find({ assignedEmployees: req.user._id }).select("assignedEmployees projectManager");
       const colleagueIds = new Set<string>();
       colleagueIds.add(req.user._id.toString());
@@ -50,28 +50,28 @@ export const getEmployees = async (req, res, next) => {
       query._id = { $in: Array.from(colleagueIds).map((id) => new mongoose.Types.ObjectId(id)) };
     }
 
-    // Search by name or email
+    
     if (search && search.trim()) {
       const searchRegex = new RegExp(search.trim(), "i");
       query.$or = [{ name: searchRegex }, { email: searchRegex }];
     }
 
-    // Filter by department
+    
     if (department && DEPARTMENTS.includes(department)) {
       query.department = department;
     }
 
-    // Filter by designation
+    
     if (designation && DESIGNATIONS.includes(designation)) {
       query.designation = designation;
     }
 
-    // Filter by status
+    
     if (status && USER_STATUSES.includes(status)) {
       query.status = status;
     }
 
-    // Filter by role
+    
     if (role && Object.values(ROLES).includes(role)) {
       query.role = role;
     }
@@ -106,7 +106,7 @@ export const getEmployees = async (req, res, next) => {
   }
 };
 
-// POST /api/employees (Owner only)
+
 export const createEmployee = async (req, res, next) => {
   try {
     const {
@@ -165,7 +165,7 @@ export const createEmployee = async (req, res, next) => {
     const hashedPassword = await hashPassword(password);
     const formattedPhone = formatIndianPhoneNumber(phoneNumber.trim());
 
-    // Direct creation by owner sets isVerified: true
+    
     const newEmployee = await User.create({
       name: name.trim(),
       email: normalizedEmail,
@@ -189,7 +189,7 @@ export const createEmployee = async (req, res, next) => {
   }
 };
 
-// PUT /api/employees/:id (Owner only)
+
 export const updateEmployee = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -209,7 +209,7 @@ export const updateEmployee = async (req, res, next) => {
       });
     }
 
-    // If requester is a Project Manager, ensure employee is assigned to at least one of their projects
+    
     if (req.user.role === ROLES.PROJECT_MANAGER && !employee._id.equals(req.user._id)) {
       const pmProject = await Project.findOne({
         projectManager: req.user._id,
@@ -223,7 +223,7 @@ export const updateEmployee = async (req, res, next) => {
       }
     }
 
-    // Whitelist editable fields to prevent mass assignment
+    
     const { name, phoneNumber, designation, department, joiningDate, status, role, password } = req.body;
 
     if (phoneNumber) {
@@ -240,7 +240,7 @@ export const updateEmployee = async (req, res, next) => {
     if (joiningDate) employee.joiningDate = new Date(joiningDate);
     if (status && USER_STATUSES.includes(status)) employee.status = status;
 
-    // Prevent accidental self-demotion or removal of the last owner
+    
     if (role && Object.values(ROLES).includes(role)) {
       if (employee._id.equals(req.user._id) && role !== ROLES.OWNER) {
         return res.status(400).json({
@@ -273,7 +273,7 @@ export const updateEmployee = async (req, res, next) => {
   }
 };
 
-// DELETE /api/employees/:id
+
 export const deleteEmployee = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -285,7 +285,7 @@ export const deleteEmployee = async (req, res, next) => {
       });
     }
 
-    // Only Owner can delete employees
+    
     if (req.user.role !== ROLES.OWNER) {
       return res.status(403).json({
         success: false,
@@ -301,7 +301,7 @@ export const deleteEmployee = async (req, res, next) => {
       });
     }
 
-    // Prevent owner from deleting their own account
+    
     if (employee._id.equals(req.user._id)) {
       return res.status(400).json({
         success: false,
@@ -309,7 +309,7 @@ export const deleteEmployee = async (req, res, next) => {
       });
     }
 
-    // Remove employee from all assigned project arrays
+    
     await Project.updateMany(
       { assignedEmployees: employee._id },
       { $pull: { assignedEmployees: employee._id } }
@@ -326,7 +326,7 @@ export const deleteEmployee = async (req, res, next) => {
   }
 };
 
-// GET /api/employees/:id
+
 export const getEmployeeById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -348,11 +348,11 @@ export const getEmployeeById = async (req, res, next) => {
       });
     }
 
-    // Role-based scoping check
+    
     if (req.user.role === ROLES.OWNER) {
-      // Owner can see any employee
+      
     } else if (req.user.role === ROLES.PROJECT_MANAGER) {
-      // PM can see themselves and employees assigned to their projects
+      
       if (!employee._id.equals(req.user._id)) {
         const sharedProject = await Project.findOne({
           projectManager: req.user._id,
@@ -366,7 +366,7 @@ export const getEmployeeById = async (req, res, next) => {
         }
       }
     } else {
-      // Employee can see themselves or colleagues on the same project
+      
       if (!employee._id.equals(req.user._id)) {
         const sharedProject = await Project.findOne({
           assignedEmployees: req.user._id,
@@ -384,7 +384,7 @@ export const getEmployeeById = async (req, res, next) => {
       }
     }
 
-    // Also fetch projects associated with this employee
+    
     const employeeProjects = await Project.find({
       $or: [{ assignedEmployees: employee._id }, { projectManager: employee._id }],
     })

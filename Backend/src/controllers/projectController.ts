@@ -3,7 +3,7 @@ import Project from "../models/Project.js";
 import User from "../models/User.js";
 import { ROLES, PROJECT_STATUSES, PROJECT_PRIORITIES } from "../constants/enums.js";
 
-// GET /api/projects
+
 export const getProjects = async (req, res, next) => {
   try {
     const {
@@ -22,28 +22,28 @@ export const getProjects = async (req, res, next) => {
 
     const query: Record<string, any> = {};
 
-    // Role-based scoping
+    
     if (req.user.role === ROLES.OWNER) {
-      // Owner sees all projects
+      
     } else if (req.user.role === ROLES.PROJECT_MANAGER) {
-      // PM sees projects they manage
+      
       query.projectManager = req.user._id;
     } else {
-      // Employee sees projects they are assigned to
+      
       query.assignedEmployees = req.user._id;
     }
 
-    // Search by project name
+    
     if (search && search.trim()) {
       query.projectName = new RegExp(search.trim(), "i");
     }
 
-    // Filter by status
+    
     if (status && PROJECT_STATUSES.includes(status)) {
       query.status = status;
     }
 
-    // Filter by priority
+    
     if (priority && PROJECT_PRIORITIES.includes(priority)) {
       query.priority = priority;
     }
@@ -79,7 +79,7 @@ export const getProjects = async (req, res, next) => {
   }
 };
 
-// POST /api/projects (Owner and authorized PM)
+
 export const createProject = async (req, res, next) => {
   try {
     const {
@@ -112,10 +112,10 @@ export const createProject = async (req, res, next) => {
       errors.push({ field: "status", message: "Invalid status" });
     }
 
-    // Validate projectManager
+    
     let pmId = projectManager;
     if (req.user.role === ROLES.PROJECT_MANAGER) {
-      // If PM creates, they are assigned as manager by default
+      
       pmId = req.user._id;
     } else if (!pmId || !mongoose.Types.ObjectId.isValid(pmId)) {
       errors.push({ field: "projectManager", message: "Valid project manager is required" });
@@ -129,7 +129,7 @@ export const createProject = async (req, res, next) => {
       });
     }
 
-    // Verify Project Manager user exists and has project_manager role (or owner)
+    
     const pmUser = await User.findById(pmId);
     if (!pmUser || (pmUser.role !== ROLES.PROJECT_MANAGER && pmUser.role !== ROLES.OWNER)) {
       return res.status(400).json({
@@ -139,7 +139,7 @@ export const createProject = async (req, res, next) => {
       });
     }
 
-    // Validate assigned employees
+    
     const validEmployeeIds = [];
     if (Array.isArray(assignedEmployees) && assignedEmployees.length > 0) {
       for (const empId of assignedEmployees) {
@@ -176,7 +176,7 @@ export const createProject = async (req, res, next) => {
   }
 };
 
-// PUT /api/projects/:id (Owner, or PM assigned to this project)
+
 export const updateProject = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -196,7 +196,7 @@ export const updateProject = async (req, res, next) => {
       });
     }
 
-    // PM resource check
+    
     if (req.user.role === ROLES.PROJECT_MANAGER && !project.projectManager.equals(req.user._id)) {
       return res.status(403).json({
         success: false,
@@ -204,7 +204,7 @@ export const updateProject = async (req, res, next) => {
       });
     }
 
-    // Employees cannot update projects
+    
     if (req.user.role === ROLES.EMPLOYEE) {
       return res.status(403).json({
         success: false,
@@ -244,7 +244,7 @@ export const updateProject = async (req, res, next) => {
       project.status = status;
     }
 
-    // Only Owner can reassign the Project Manager
+    
     if (projectManager && req.user.role === ROLES.OWNER) {
       if (mongoose.Types.ObjectId.isValid(projectManager)) {
         const pmUser = await User.findById(projectManager);
@@ -254,7 +254,7 @@ export const updateProject = async (req, res, next) => {
       }
     }
 
-    // Assigning employees (Owner or assigned PM)
+    
     if (Array.isArray(assignedEmployees)) {
       const validEmployeeIds = [];
       for (const empId of assignedEmployees) {
@@ -283,7 +283,7 @@ export const updateProject = async (req, res, next) => {
   }
 };
 
-// DELETE /api/projects/:id
+
 export const deleteProject = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -303,7 +303,7 @@ export const deleteProject = async (req, res, next) => {
       });
     }
 
-    // Authorization: Only Owner or the assigned Project Manager can delete the project
+    
     const isOwner = req.user.role === ROLES.OWNER;
     const isAssignedPM =
       req.user.role === ROLES.PROJECT_MANAGER &&
@@ -328,7 +328,7 @@ export const deleteProject = async (req, res, next) => {
   }
 };
 
-// GET /api/projects/:id
+
 export const getProjectById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -350,11 +350,11 @@ export const getProjectById = async (req, res, next) => {
       });
     }
 
-    // Role-based scoping check
+    
     if (req.user.role === ROLES.OWNER) {
-      // Owner can view any project
+      
     } else if (req.user.role === ROLES.PROJECT_MANAGER) {
-      // PM can only view projects they manage
+      
       const isManager = project.projectManager && (project.projectManager as any)._id?.equals(req.user._id);
       if (!isManager) {
         return res.status(403).json({
@@ -363,7 +363,7 @@ export const getProjectById = async (req, res, next) => {
         });
       }
     } else {
-      // Employee can only view projects they are assigned to
+      
       const isAssigned = project.assignedEmployees.some((emp: any) =>
         emp._id?.equals(req.user._id)
       );

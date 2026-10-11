@@ -2,23 +2,23 @@ import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import jwt, { SignOptions, JwtPayload } from "jsonwebtoken";
 
-// Cryptographically secure 6-digit OTP
+
 export const generateOTP = (): string => {
   return crypto.randomInt(100000, 1000000).toString();
 };
 
-// Hash strings (like OTPs) with SHA-256
+
 export const hashToken = (token: string): string => {
   return crypto.createHash("sha256").update(token).digest("hex");
 };
 
-// Bcrypt password hash
+
 export const hashPassword = async (password: string): Promise<string> => {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
 };
 
-// Bcrypt password compare
+
 export const comparePassword = async (
   enteredPassword: string,
   hashedPassword: string
@@ -26,7 +26,7 @@ export const comparePassword = async (
   return bcrypt.compare(enteredPassword, hashedPassword);
 };
 
-// Generate JWT Access Token (stateless)
+
 export const generateAccessToken = (user: any): string => {
   const options: SignOptions = {
     expiresIn: (process.env.JWT_ACCESS_EXPIRES_IN || "15m") as any,
@@ -44,7 +44,7 @@ export const generateAccessToken = (user: any): string => {
   );
 };
 
-// Generate JWT Refresh Token (stateless, verified cryptographically by secret)
+
 export const generateRefreshToken = (user: any): string => {
   const options: SignOptions = {
     expiresIn: (process.env.JWT_REFRESH_EXPIRES_IN || "7d") as any,
@@ -59,7 +59,7 @@ export const generateRefreshToken = (user: any): string => {
   );
 };
 
-// Verify JWT Refresh Token cryptographically
+
 export const verifyRefreshToken = (token: string): JwtPayload | null => {
   try {
     return jwt.verify(

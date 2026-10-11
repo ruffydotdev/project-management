@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # EMPMS — Employee & Project Management System
 
 Production-ready, full-stack Employee & Project Management System built with the **MERN** stack (MongoDB, Express, React, Node.js), TypeScript, SCSS, and Redux Toolkit, adhering to a dark, minimal SaaS dashboard design system with vibrant lime accents.
@@ -119,17 +118,16 @@ npm run build    # Compiles TypeScript and builds production bundles
 ### Employees
 - `GET /api/employees` — Role-scoped employee listing with search, filtering, and pagination
 - `POST /api/employees` — Create employee (Owner only)
+- `GET /api/employees/:id` — View employee details and assigned projects
 - `PUT /api/employees/:id` — Update employee (Owner only)
-- `DELETE /api/employees/:id` — Restricted (Returns 403 Forbidden)
+- `DELETE /api/employees/:id` — Delete employee (Owner only)
 
 ### Projects
 - `GET /api/projects` — Role-scoped project listing with search, filtering, and pagination
-- `POST /api/projects` — Create project (Owner & PM)
-- `PUT /api/projects/:id` — Update project (Owner & assigned PM)
-- `DELETE /api/projects/:id` — Restricted (Returns 403 Forbidden)
+- `POST /api/projects` — Create project (Owner & Project Manager)
+- `GET /api/projects/:id` — View project details and assigned team members
+- `PUT /api/projects/:id` — Update project (Owner & assigned Project Manager)
+- `DELETE /api/projects/:id` — Delete project (Owner & assigned Project Manager)
 
 ### Dashboard
-- `GET /api/dashboard/stats` — Real-time metrics and weekly velocity telemetry scoped to user role
-=======
-# project-management
->>>>>>> 654644db55f653577c0750910485e9b4730a83b0
+- `GET /api/dashboard/stats` — Real-time metrics and weekly velocity telemetry scoped dynamically from MongoDB

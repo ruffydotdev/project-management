@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 export const sendOTPEmail = async (toEmail: string, otp: string) => {
-  // Check if SMTP credentials are provided
+  
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
     try {
       const cleanPass = process.env.SMTP_PASS.replace(/\s+/g, "");
@@ -9,7 +9,7 @@ export const sendOTPEmail = async (toEmail: string, otp: string) => {
       const port = parseInt(process.env.SMTP_PORT || "587", 10);
       const isGmail = host.toLowerCase().includes("gmail") || (process.env.SMTP_USER || "").toLowerCase().includes("gmail");
 
-      // For Gmail, nodemailer's built-in "service: 'gmail'" is the most reliable on cloud platforms like Render
+      
       const transportConfig: any = isGmail
         ? {
             service: "gmail",
@@ -21,7 +21,7 @@ export const sendOTPEmail = async (toEmail: string, otp: string) => {
         : {
             host,
             port,
-            secure: port === 465, // Port 465 uses SSL/TLS, port 587 uses STARTTLS
+            secure: port === 465, 
             auth: {
               user: process.env.SMTP_USER,
               pass: cleanPass,
@@ -33,7 +33,7 @@ export const sendOTPEmail = async (toEmail: string, otp: string) => {
 
       const transporter = nodemailer.createTransport(transportConfig);
 
-      // Clean sender address
+      
       const senderFrom = process.env.SMTP_FROM 
         ? process.env.SMTP_FROM.replace(/^["']|["']$/g, "") 
         : `"EMPMS System" <${process.env.SMTP_USER}>`;

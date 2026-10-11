@@ -32,7 +32,7 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Close dropdown on outside click
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -48,7 +48,7 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
     };
   }, []);
 
-  // Focus search input when dropdown opens
+  
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
@@ -59,7 +59,7 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
     }
   }, [isOpen]);
 
-  // Filter options based on search query
+  
   const filteredOptions = useMemo(() => {
     if (!searchTerm.trim()) return options;
     const q = searchTerm.toLowerCase();
@@ -72,7 +72,7 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
     );
   }, [options, searchTerm]);
 
-  // Map of selected items for quick lookup
+  
   const selectedMembers = useMemo(() => {
     const set = new Set(selectedIds);
     return options.filter((opt) => set.has(opt._id));
@@ -126,7 +126,7 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
         </div>
       )}
 
-      {/* Trigger Button */}
+      {}
       <button
         type="button"
         disabled={disabled}
@@ -151,7 +151,7 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
         />
       </button>
 
-      {/* Selected Members Pill Cloud */}
+      {}
       {selectedMembers.length > 0 && (
         <div className={styles.selectedRack}>
           {selectedMembers.map((member) => (
@@ -170,10 +170,10 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
         </div>
       )}
 
-      {/* Dropdown Menu */}
+      {}
       {isOpen && (
         <div className={styles.dropdownMenu}>
-          {/* Search Filter Header */}
+          {}
           <div className={styles.searchHeader}>
             <Search size={14} className={styles.searchIcon} />
             <input
@@ -195,7 +195,7 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
             )}
           </div>
 
-          {/* Quick Actions Bar */}
+          {}
           <div className={styles.quickActions}>
             <button
               type="button"
@@ -215,7 +215,7 @@ export const MemberSelectDropdown: React.FC<MemberSelectDropdownProps> = ({
             )}
           </div>
 
-          {/* List Options */}
+          {}
           <div className={styles.optionsList}>
             {filteredOptions.length === 0 ? (
               <div className={styles.emptyState}>

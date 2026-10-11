@@ -1,26 +1,26 @@
-// Strict Color Palette from Master Specification & Dashboard Reference
-// 1. Backgrounds & Panels
-$bg-main: #0B0B0D;              // Main background
-$bg-panel: #151519;             // Cards, panels, inputs, modals
-$bg-surface-hover: #1e1e24;     // Card/row hover state
-$bg-subtle: #121216;            // Sub-containers, table headers
 
-// 2. Borders & Dividers
-$border-color: #292930;         // Borders and dividers
+
+$bg-main: #0B0B0D;
+$bg-panel: #151519;
+$bg-surface-hover: #1e1e24;
+$bg-subtle: #121216;
+
+
+$border-color: #292930;
 $border-light: rgba(255, 255, 255, 0.08);
 
-// 3. Typography Colors
-$text-primary: #F5F5F7;         // Primary text
-$text-secondary: #9E9EA8;       // Muted text, descriptions, subtitles
-$text-tertiary: #656570;        // Placeholders, disabled text
-$text-inverse: #0B0B0D;         // Dark text on bright accent
 
-// 4. Accent Colors
-$primary-accent: #A3E635;       // Vibrant Lime accent (Loud design reference)
-$primary-accent-hover: #8ecc26; // Lime hover
-$primary-accent-subtle: rgba(163, 230, 53, 0.12); // Subtle lime badge bg
+$text-primary: #F5F5F7;
+$text-secondary: #9E9EA8;
+$text-tertiary: #656570;
+$text-inverse: #0B0B0D;
 
-// 5. Semantic / Feedback Colors
+
+$primary-accent: #A3E635;
+$primary-accent-hover: #8ecc26;
+$primary-accent-subtle: rgba(163, 230, 53, 0.12);
+
+
 $semantic-success: #22C55E;
 $semantic-success-subtle: rgba(34, 197, 94, 0.12);
 $semantic-warning: #EAB308;
@@ -30,7 +30,7 @@ $semantic-error-subtle: rgba(239, 68, 68, 0.12);
 $semantic-info: #38BDF8;
 $semantic-info-subtle: rgba(56, 189, 248, 0.12);
 
-// Common UI Dimensions
+
 $border-radius-sm: 6px;
 $border-radius-md: 10px;
 $border-radius-lg: 14px;

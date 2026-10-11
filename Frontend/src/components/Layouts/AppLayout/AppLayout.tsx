@@ -12,7 +12,7 @@ export const AppLayout: React.FC = () => {
     (state: RootState) => state.auth
   );
 
-  // If restoring authentication session, render a smooth minimal loading screen
+  
   if (isInitialLoading) {
     return (
       <div className={styles.loadingScreen}>
@@ -21,7 +21,7 @@ export const AppLayout: React.FC = () => {
     );
   }
 
-  // Route protection
+  
   if (!isAuthenticated) {
     return <Navigate to="/auth/login" replace />;
   }

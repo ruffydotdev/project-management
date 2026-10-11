@@ -35,8 +35,8 @@ const initialState: AuthState = {
   verificationEmail: null,
 };
 
-// Check current session on app mount via authenticated /auth/me endpoint.
-// If accessToken is expired or missing, Axios interceptor will automatically trigger /auth/refresh and retry!
+
+
 export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { rejectWithValue }) => {
   try {
     const response = await api.get("/auth/me");
@@ -47,7 +47,7 @@ export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { rejectWi
   }
 });
 
-// Login action
+
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (credentials: { email: string; password: string }, { rejectWithValue }) => {
@@ -66,7 +66,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Logout action
+
 export const logoutUser = createAsyncThunk("auth/logout", async () => {
   try {
     await api.post("/auth/logout");
@@ -91,7 +91,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // checkAuth
+    
     builder.addCase(checkAuth.pending, (state) => {
       state.isInitialLoading = true;
     });
@@ -107,7 +107,7 @@ const authSlice = createSlice({
       state.isInitialLoading = false;
     });
 
-    // login
+    
     builder.addCase(loginUser.pending, (state) => {
       state.isLoading = true;
       state.error = null;
@@ -126,7 +126,7 @@ const authSlice = createSlice({
       }
     });
 
-    // logout
+    
     builder.addCase(logoutUser.fulfilled, (state) => {
       state.user = null;
       state.isAuthenticated = false;

@@ -6,9 +6,7 @@ import { ROLES } from "../constants/enums.js";
 
 dotenv.config();
 
-/**
- * Creates or updates a default/dummy Owner user without clearing other data.
- */
+
 export const seedDefaultOwner = async () => {
   const defaultOwnerData = {
     name: process.env.DEFAULT_OWNER_NAME || "Default Owner",
@@ -28,7 +26,7 @@ export const seedDefaultOwner = async () => {
   });
 
   if (existingOwner) {
-    // If an owner already exists, ensure it is verified and active
+    
     if (!existingOwner.isVerified || existingOwner.status !== "Active") {
       existingOwner.isVerified = true;
       existingOwner.status = "Active";
@@ -56,7 +54,7 @@ export const seedDefaultOwner = async () => {
   return createdOwner;
 };
 
-// If run directly via CLI (e.g., npm run seed:owner)
+
 const isDirectRun = process.argv[1]?.endsWith("seedOwner.js");
 if (isDirectRun) {
   const run = async () => {

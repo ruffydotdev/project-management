@@ -6,7 +6,7 @@ export interface AuthenticatedRequest extends Request {
   user?: IUser;
 }
 
-// Verify access token
+
 export const authenticate = async (
   req: AuthenticatedRequest,
   res: Response,
@@ -80,7 +80,7 @@ export const authenticate = async (
   }
 };
 
-// Role-based authorization middleware
+
 export const authorizeRoles = (...roles: string[]) => {
   return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     if (!req.user || !roles.includes(req.user.role)) {

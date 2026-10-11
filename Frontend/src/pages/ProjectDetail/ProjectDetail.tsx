@@ -53,12 +53,12 @@ export const ProjectDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Edit Project Modal states
+  
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
   const [modalError, setModalError] = useState<string | null>(null);
 
-  // Assignment resources
+  
   const [availableEmployees, setAvailableEmployees] = useState<UserMeta[]>([]);
   const [availableManagers, setAvailableManagers] = useState<UserMeta[]>([]);
 
@@ -120,11 +120,11 @@ export const ProjectDetail: React.FC = () => {
     }
   }, [id, fetchProject, fetchAssignmentOptions]);
 
-  // Authorization check: Owner or Assigned PM
+  
   const canEditProject =
     isOwner || (isPM && project?.projectManager?._id === currentUser?._id);
 
-  // Quick remove member directly from team card
+  
   const handleRemoveMember = async (memberId: string) => {
     if (!project || !canEditProject) return;
     try {
@@ -190,7 +190,7 @@ export const ProjectDetail: React.FC = () => {
         <ArrowLeft size={16} /> Back to Projects
       </button>
 
-      {/* Header Project Card */}
+      {}
       <div className={styles.headerCard}>
         <div className={styles.titleSection}>
           <h1 className={styles.projectName}>{project.projectName}</h1>
@@ -242,9 +242,9 @@ export const ProjectDetail: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Grid */}
+      {}
       <div className={styles.contentGrid}>
-        {/* Left Column: Timeline & Manager */}
+        {}
         <div className={styles.cardSection}>
           <div className={styles.sectionHeader}>
             <div className={styles.headerTitleGroup}>
@@ -300,7 +300,7 @@ export const ProjectDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column: Assigned Team */}
+        {}
         <div className={styles.cardSection}>
           <div className={styles.sectionHeader}>
             <div className={styles.headerTitleGroup}>
@@ -374,7 +374,7 @@ export const ProjectDetail: React.FC = () => {
         </div>
       </div>
 
-      {/* Edit Project & Assign Members Modal */}
+      {}
       {canEditProject && (
         <Modal
           isOpen={isEditModalOpen}
@@ -442,7 +442,7 @@ export const ProjectDetail: React.FC = () => {
               />
             </div>
 
-            {/* Owner can re-assign the Project Manager */}
+            {}
             {isOwner && availableManagers.length > 0 && (
               <Select
                 label="Assigned Project Manager"
@@ -456,7 +456,7 @@ export const ProjectDetail: React.FC = () => {
               />
             )}
 
-            {/* Assign / Remove Team Members Dropdown */}
+            {}
             <div className={styles.formGroup}>
               <MemberSelectDropdown
                 label="Assign Team Members"

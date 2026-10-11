@@ -6,7 +6,7 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/empms_db");
     console.log(`[Database] MongoDB Connected: ${conn.connection.host}`);
     
-    // Automatically seed dummy database (Owner, PMs, 20 Employees, 50 Projects) if not already populated
+    
     await autoSeedIfEmpty(false);
   } catch (error: any) {
     console.error(`[Database Error] ${error.message}`);

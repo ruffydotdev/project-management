@@ -3,7 +3,7 @@ import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5555/api";
 console.log("[EMPMS API Client] Active Base URL:", API_BASE_URL);
 
-// In-memory access token storage (populated on login/refresh from response for Authorization header)
+
 let memoryAccessToken: string | null = null;
 
 export const setAccessToken = (token: string | null) => {
@@ -11,7 +11,7 @@ export const setAccessToken = (token: string | null) => {
 };
 
 export const setRefreshToken = (_token: string | null) => {
-  // Refresh token is managed securely and exclusively via HttpOnly cookie set/cleared by backend
+  
 };
 
 export const setAuthTokens = (accessToken: string | null, _refreshToken?: string | null) => {
@@ -20,7 +20,7 @@ export const setAuthTokens = (accessToken: string | null, _refreshToken?: string
 
 export const clearAuthTokens = () => {
   setAccessToken(null);
-  // Clear any residual legacy localStorage tokens if present
+  
   if (typeof window !== "undefined") {
     localStorage.removeItem("empms_access_token");
     localStorage.removeItem("empms_refresh_token");
@@ -32,7 +32,7 @@ export const getAccessToken = (): string | null => {
 };
 
 export const getRefreshToken = (): string | null => {
-  // Handled automatically by browser via withCredentials cookies
+  
   return null;
 };
 
@@ -41,10 +41,10 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // Enables cookie passing for refresh and access tokens
+  withCredentials: true, 
 });
 
-// Request interceptor: attach current access token from storage/cookie
+
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = getAccessToken();
@@ -56,7 +56,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Concurrency handling for refresh token rotation (single-flight queue)
+
 let isRefreshing = false;
 let isLoggingOut = false;
 let failedQueue: Array<{
@@ -75,17 +75,17 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
-// Response interceptor: handle automatic token refresh and transparent retry
+
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError<any>) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-    // Detect if this is an authentication error (401)
-    // Only attempt refresh if:
-    // 1. It is a 401 response
-    // 2. Request configuration exists and has not already been retried once
-    // 3. Not an auth endpoint itself (login, register, or refresh route)
+    
+    
+    
+    
+    
     const isAuthRoute =
       originalRequest?.url?.includes("/auth/login") ||
       originalRequest?.url?.includes("/auth/refresh") ||
@@ -93,7 +93,7 @@ api.interceptors.response.use(
       originalRequest?.url?.includes("/auth/verify-email");
 
     if (error.response?.status === 401 && originalRequest && !originalRequest._retry && !isAuthRoute) {
-      // If another request is currently refreshing the token, join the queue
+      
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -107,12 +107,12 @@ api.interceptors.response.use(
           .catch((err) => Promise.reject(err));
       }
 
-      // Mark request to prevent infinite loops
+      
       originalRequest._retry = true;
       isRefreshing = true;
 
       try {
-        // Request refreshed tokens via backend refresh endpoint using withCredentials (HttpOnly cookie)
+        
         const refreshResponse = await axios.post(
           `${API_BASE_URL}/auth/refresh`,
           {},
@@ -125,23 +125,23 @@ api.interceptors.response.use(
           throw new Error("No access token returned from refresh endpoint");
         }
 
-        // Store new access token in memory
+        
         setAccessToken(newAccessToken);
 
-        // Resume all queued concurrent requests with the new access token
+        
         processQueue(null, newAccessToken);
 
-        // Retry original failed request with the new access token
+        
         if (originalRequest.headers) {
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         }
         return api(originalRequest);
       } catch (refreshErr: any) {
-        // Refresh token failed, expired, or invalid
+        
         processQueue(refreshErr, null);
         clearAuthTokens();
 
-        // Prevent repeated redirects and logout loops
+        
         if (!isLoggingOut) {
           isLoggingOut = true;
           if (
@@ -162,7 +162,7 @@ api.interceptors.response.use(
       }
     }
 
-    // Do NOT refresh on 403 (Forbidden), network errors, or 5xx server errors
+    
     return Promise.reject(error);
   }
 );

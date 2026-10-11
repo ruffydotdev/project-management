@@ -14,7 +14,7 @@
 
      @include mobile {
          gap: var(--space-xs);
-         //   margin-bottom: var(--space-sm);
+
      }
 
 
@@ -87,7 +87,7 @@
          color: var(--red);
          width: fit-content;
          background-color: var(--bg-color);
-        //  background-color: inherit;
+
          padding: 0 var(--space-xxs);
          transition: all .3s ease-in-out;
          opacity: 0;

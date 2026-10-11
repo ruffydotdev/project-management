@@ -61,7 +61,7 @@ export const EmployeeDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Edit Modal States
+  
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
   const [modalError, setModalError] = useState<string | null>(null);
@@ -110,7 +110,7 @@ export const EmployeeDetail: React.FC = () => {
     }
   }, [id, fetchEmployee]);
 
-  // Authorization check: Owner OR PM who manages at least one of this employee's projects
+  
   const canEditEmployee =
     isOwner ||
     (isPM &&
@@ -132,7 +132,7 @@ export const EmployeeDetail: React.FC = () => {
     try {
       const updatePayload: any = { ...formData };
       if (!updatePayload.password) delete updatePayload.password;
-      // If PM is editing, don't submit role field unless Owner
+      
       if (!isOwner) delete updatePayload.role;
 
       await api.put(`/employees/${id}`, updatePayload);
@@ -176,7 +176,7 @@ export const EmployeeDetail: React.FC = () => {
         <ArrowLeft size={16} /> Back to Directory
       </button>
 
-      {/* Header Profile Card */}
+      {}
       <div className={styles.headerCard}>
         <div className={styles.profileSection}>
           <div className={styles.avatar}>
@@ -220,9 +220,9 @@ export const EmployeeDetail: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Grid */}
+      {}
       <div className={styles.contentGrid}>
-        {/* Left Column: Personnel Info */}
+        {}
         <div className={styles.cardSection}>
           <div className={styles.sectionHeader}>
             <div className={styles.headerTitleGroup}>
@@ -278,7 +278,7 @@ export const EmployeeDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column: Assigned Projects */}
+        {}
         <div className={styles.cardSection}>
           <div className={styles.sectionHeader}>
             <div className={styles.headerTitleGroup}>
@@ -329,7 +329,7 @@ export const EmployeeDetail: React.FC = () => {
         </div>
       </div>
 
-      {/* Edit Employee Modal */}
+      {}
       {canEditEmployee && (
         <Modal
           isOpen={isEditModalOpen}

@@ -25,7 +25,7 @@ export const Signup: React.FC = () => {
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Password rules validation
+  
   const passwordRules = {
     length: formData.password.length >= 8,
     upper: /[A-Z]/.test(formData.password),

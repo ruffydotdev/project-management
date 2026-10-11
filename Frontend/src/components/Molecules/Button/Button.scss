@@ -18,12 +18,12 @@
 
 
     @include tablet {
-        // font-size: var(--font-md);
+
     }
 
     @include mobile {
         padding: var(--space-xxs) var(--space-xs);
-        // font-size: var(--font-xs);
+
     }
 
     &:hover {
