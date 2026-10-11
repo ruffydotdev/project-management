@@ -13,18 +13,22 @@ import { sendOTPEmail } from "../services/emailService.js";
 import { validateRegisterInput, validateEmail, validateIndianPhoneNumber, formatIndianPhoneNumber } from "../utils/validators.js";
 
 // Cookie configuration for refresh tokens
+const isProduction = process.env.NODE_ENV === "production";
+
 const getCookieOptions = () => ({
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: (process.env.NODE_ENV === "production" ? "strict" : "lax") as any,
+  secure: isProduction,
+  sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  path: "/",
 });
 
 // Clear cookie options without maxAge (avoids Express deprecation notice)
 const getClearCookieOptions = () => ({
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: (process.env.NODE_ENV === "production" ? "strict" : "lax") as any,
+  secure: isProduction,
+  sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
+  path: "/",
 });
 
 // POST /api/auth/register

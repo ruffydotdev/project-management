@@ -14,11 +14,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5555;
 
+// Required on Render / cloud proxies so Express recognizes HTTPS for secure cookies
+app.set("trust proxy", 1);
+
 // Connect to MongoDB
 connectDB();
 
 // CORS Configuration
-const allowedOrigins = [
+const rawOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "http://localhost:5174",
@@ -26,17 +29,26 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
   process.env.CLIENT_URL,
-].filter(Boolean);
+].filter(Boolean) as string[];
+
+const normalizedOrigins = rawOrigins.map((url) => url.replace(/\/+$/, "").toLowerCase());
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl) or in allowed list
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS policy violation: ${origin} not allowed by CORS`));
+      // Allow requests with no origin (like mobile apps, curl, or server-to-server)
+      if (!origin) return callback(null, true);
+      
+      const cleanOrigin = origin.replace(/\/+$/, "").toLowerCase();
+      
+      if (
+        normalizedOrigins.includes(cleanOrigin) ||
+        cleanOrigin.endsWith(".vercel.app")
+      ) {
+        return callback(null, true);
       }
+      
+      callback(new Error(`CORS policy violation: ${origin} not allowed by CORS`));
     },
     credentials: true,
   })
