@@ -1,0 +1,126 @@
+@use '../../styles/abstracts' as cfg;
+
+.authContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background-color: var(--bg-main);
+}
+
+.authCard {
+  width: 100%;
+  max-width: 440px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+.brandHeader {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logoMark {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: conic-gradient(from 180deg at 50% 50%, var(--primary-accent) 0deg, #65a30d 180deg, var(--primary-accent) 360deg);
+  margin: 0 auto 16px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.submitBtn {
+  margin-top: 6px;
+  width: 100%;
+}
+
+.errorAlert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--semantic-error-subtle);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--semantic-error);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.infoAlert {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: var(--semantic-info-subtle);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--semantic-info);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.verifyLink {
+  color: var(--primary-accent);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.link {
+  color: var(--primary-accent);
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.credentialsHint {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+
+  code {
+    background-color: var(--bg-subtle);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 11px;
+  }
+}

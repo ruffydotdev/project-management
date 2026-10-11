@@ -1,0 +1,350 @@
+.projectDetailContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 0;
+  width: fit-content;
+  transition: color var(--transition-fast, 0.15s ease);
+
+  &:hover {
+    color: var(--primary-accent, #6366f1);
+  }
+}
+
+.headerCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg, 12px);
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 650px;
+
+  .projectName {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .projectDesc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 6px;
+  }
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 360px 1fr;
+  }
+}
+
+.cardSection {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md, 8px);
+  padding: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+
+  .headerTitleGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sectionTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  svg {
+    color: var(--primary-accent, #6366f1);
+  }
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .infoLabel {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+
+  .infoValue {
+    font-size: 13px;
+    color: var(--text-primary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.clickableUser {
+  cursor: pointer;
+  transition: color var(--transition-fast, 0.15s ease);
+
+  &:hover {
+    color: var(--primary-accent, #6366f1);
+  }
+}
+
+.teamList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.memberCard {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm, 6px);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all var(--transition-fast, 0.15s ease);
+
+  .memberAvatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    color: var(--primary-accent, #6366f1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .memberDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    flex: 1;
+
+    .memberName {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      &:hover {
+        color: var(--primary-accent, #6366f1);
+      }
+    }
+
+    .memberDesignation {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  .removeMemberBtn {
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: var(--radius-sm, 6px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast, 0.15s ease);
+
+    &:hover {
+      color: var(--semantic-error, #ef4444);
+      background: rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+.emptyTeam {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--text-tertiary);
+  gap: 8px;
+  font-size: 13px;
+}
+
+/* Modal and Form Elements */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.textareaLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.textarea {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm, 6px);
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+
+  &:focus {
+    border-color: var(--primary-accent, #6366f1);
+  }
+}
+
+.employeesSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 8px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm, 6px);
+}
+
+.empSelectChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.15s ease);
+
+  &:hover {
+    border-color: var(--primary-accent, #6366f1);
+  }
+
+  &.selectedChip {
+    background-color: rgba(99, 102, 241, 0.15);
+    border-color: var(--primary-accent, #6366f1);
+    color: #818cf8;
+    font-weight: 600;
+  }
+}
+
+.empChipDept {
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+.modalActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.modalErrorAlert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--semantic-error, #ef4444);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm, 6px);
+  font-size: 13px;
+  margin-bottom: 16px;
+}

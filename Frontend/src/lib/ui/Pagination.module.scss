@@ -1,0 +1,101 @@
+@use '../../styles/abstracts' as cfg;
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background-color: var(--bg-panel);
+  border-top: 1px solid var(--border-color);
+  font-size: 13px;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.recordCount {
+  font-size: 13px;
+  color: var(--text-secondary);
+
+  .highlight {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pageSizeSelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageSizeLabel {
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+.pageSizeSelect {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 12px;
+  padding: 4px 8px;
+  outline: none;
+  cursor: pointer;
+
+  &:focus {
+    border-color: var(--primary-accent);
+  }
+}
+
+.pageButtons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.navButton,
+.pageButton {
+  min-width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  &:hover:not(:disabled) {
+    background-color: var(--bg-surface-hover);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.active {
+  background-color: var(--primary-accent) !important;
+  color: var(--text-inverse) !important;
+  border-color: var(--primary-accent) !important;
+}
+
+.ellipsis {
+  padding: 0 4px;
+  color: var(--text-tertiary);
+}

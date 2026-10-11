@@ -1,0 +1,18 @@
+@use './../../../Styles/index.scss' as *;
+
+.form__row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:  var(--space-md);
+    flex-wrap: wrap;
+
+    @include tablet {
+        gap: var(--space-md) var(--space-sm);
+    }
+
+    @include mobile {
+        gap: var(--space-sm) var(--space-xs);
+    }
+}

@@ -1,0 +1,255 @@
+@use '../../styles/abstracts' as cfg;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Toolbar */
+.filterToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0 14px;
+  height: 40px;
+  width: 100%;
+  max-width: 340px;
+
+  &:focus-within {
+    border-color: var(--primary-accent);
+  }
+}
+
+.searchIcon {
+  color: var(--text-tertiary);
+  margin-right: 10px;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 13px;
+  width: 100%;
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+}
+
+.selectFilters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filterSelect {
+  width: 190px;
+}
+
+/* Table Card */
+.tableCard {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.tableResponsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+
+  th {
+    background-color: var(--bg-subtle);
+    padding: 14px 20px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    vertical-align: middle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background-color: var(--bg-surface-hover);
+  }
+}
+
+.clickableRow {
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 0.15s ease);
+}
+
+.nameCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--primary-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.nameDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.empName {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.empEmail {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.roleCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.designation {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.roleTag {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  text-transform: capitalize;
+}
+
+.department {
+  color: var(--text-secondary);
+}
+
+.contactCell {
+  color: var(--text-secondary);
+}
+
+.dateCell {
+  color: var(--text-tertiary);
+}
+
+.actionIconBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    color: var(--primary-accent);
+    background-color: var(--bg-subtle);
+  }
+}
+
+/* Modal Form */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modalActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.modalErrorAlert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--semantic-error-subtle);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--semantic-error);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 16px;
+}

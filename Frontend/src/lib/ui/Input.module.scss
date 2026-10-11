@@ -1,0 +1,84 @@
+@use '../../styles/abstracts' as cfg;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0 14px;
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  &:focus {
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 1px var(--primary-accent-subtle);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.hasError {
+  border-color: var(--semantic-error) !important;
+
+  &:focus {
+    box-shadow: 0 0 0 1px var(--semantic-error-subtle) !important;
+  }
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
+.errorText {
+  font-size: 12px;
+  color: var(--semantic-error);
+}
+
+.helperText {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}

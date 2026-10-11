@@ -1,0 +1,74 @@
+@use './../../../Styles/index.scss' as *;
+
+.radio {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    position: relative;
+
+    &__label {
+        flex: 1;
+        text-transform: capitalize;
+        margin-bottom: var(--space-sm);
+    }
+
+    &.warn &__label {
+        // color: var(--red);
+    }
+
+    &__values {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xxs) var(--space-lg);
+        width: fit-content;
+        flex-wrap: wrap;
+    }
+
+    &__value {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-md);
+
+        @include tablet {
+            gap: var(--space-xs);
+        }
+
+        @include mobile {
+            gap: var(--space-xxs);
+        }
+    }
+
+    .warning {
+        color: var(--red);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: var(--red);
+        width: fit-content;
+        background-color: var(--bg-color);
+        padding: 0 var(--space-xxs);
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+        transform: translate(5%, 150%);
+        font-size: var(--font-sm);
+
+        @include tablet {
+            font-size: var(--font-xs);
+        }
+
+        @include mobile {
+            font-size: var(--font-xxs);
+        }
+    }
+
+    &.warn .warning {
+        display: block;
+        transform: translate(5%, 100%);
+        opacity: 1;
+    }
+
+
+}

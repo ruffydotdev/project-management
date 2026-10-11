@@ -1,0 +1,226 @@
+@use '../../../styles/abstracts' as cfg;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 90;
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.sidebar {
+  width: 240px;
+  background-color: var(--bg-main);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  transition: width var(--transition-fast), transform var(--transition-fast);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    transform: translateX(-100%);
+    width: 260px;
+
+    &.mobileOpen {
+      transform: translateX(0);
+    }
+  }
+}
+
+.collapsed {
+  width: 72px;
+
+  .header {
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  .navItem {
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .userProfile {
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  .logoutBtn {
+    justify-content: center;
+    padding: 10px 0;
+  }
+}
+
+.header {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoMark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: conic-gradient(from 180deg at 50% 50%, var(--primary-accent) 0deg, #65a30d 180deg, var(--primary-accent) 360deg);
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.collapseBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-surface-hover);
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.nav {
+  flex: 1;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-panel);
+  }
+
+  &.active {
+    background-color: var(--bg-panel);
+    color: var(--primary-accent);
+    border: 1px solid var(--border-color);
+  }
+}
+
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.footer {
+  padding: 14px 12px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--primary-accent-subtle);
+  color: var(--primary-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: capitalize;
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    color: var(--semantic-error);
+    background-color: var(--semantic-error-subtle);
+  }
+}

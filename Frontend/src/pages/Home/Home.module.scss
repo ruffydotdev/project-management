@@ -1,0 +1,303 @@
+@use '../../styles/abstracts' as cfg;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Metrics Cards Grid */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 580px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metricCard {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    background-color: var(--bg-surface);
+  }
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.metricLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.metricIcon {
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+}
+
+.metricValue {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.metricContext {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 8px;
+}
+
+/* Content Grid: Velocity Chart + Recent Projects */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.telemetryCard,
+.recentProjectsCard {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sectionSubtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.viewAllLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--primary-accent);
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Chart Bars */
+.chartBars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 160px;
+  padding: 10px 0 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.barColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  height: 100%;
+}
+
+.barTrack {
+  width: 24px;
+  height: 100%;
+  background-color: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.barFill {
+  width: 100%;
+  background-color: var(--primary-accent);
+  border-radius: var(--radius-sm);
+  transition: height 0.6s ease;
+}
+
+.barLabel {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.chartFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 20px;
+}
+
+.statPill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background-color: var(--bg-surface);
+    transform: translateY(-1px);
+  }
+}
+
+.pillValue {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pillLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Recent Projects List */
+.projectList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.projectItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  gap: 16px;
+  transition: border-color var(--transition-fast);
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.projectMain {
+  overflow: hidden;
+}
+
+.projectName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.projectDesc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+  margin-top: 2px;
+}
+
+.projectMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.projectDate {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.skeletonList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.emptyRecent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  color: var(--text-tertiary);
+  gap: 8px;
+  font-size: 13px;
+}

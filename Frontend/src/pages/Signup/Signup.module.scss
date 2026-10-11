@@ -1,0 +1,123 @@
+@use '../../styles/abstracts' as cfg;
+
+.authContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 16px;
+  background-color: var(--bg-main);
+}
+
+.authCard {
+  width: 100%;
+  max-width: 640px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+.brandHeader {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logoMark {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: conic-gradient(from 180deg at 50% 50%, var(--primary-accent) 0deg, #65a30d 180deg, var(--primary-accent) 360deg);
+  margin: 0 auto 12px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.passwordRules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.ruleItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ruleMet {
+  color: var(--semantic-success);
+}
+
+.ruleUnmet {
+  color: var(--text-tertiary);
+}
+
+.submitBtn {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.errorAlert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--semantic-error-subtle);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--semantic-error);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.link {
+  color: var(--primary-accent);
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

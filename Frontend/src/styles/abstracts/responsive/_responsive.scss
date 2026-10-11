@@ -1,0 +1,54 @@
+// Responsive Function........
+@mixin smallDevice {
+  @media (max-width: 300px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin smallTablet {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 1231px) {
+    @content;
+  }
+}
+
+// Between Function........
+
+@mixin range($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+
+// let's Work out with the Advanced Mixin Responsive function....
+@mixin responsive($size, $type: max, $max-width: null) {
+  @if $type == max {
+    @media (max-width:$size) {
+      @content;
+    }
+  }
+
+  @else if $type == min {
+    @media (min-width:$size) {
+      @content;
+    }
+  }
+
+  @else if $type == range and $max-width != null {
+    @media (min-width:$size) and (max-width:$max-width) {
+      @content;
+    }
+  }
+}

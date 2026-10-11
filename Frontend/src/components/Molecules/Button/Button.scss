@@ -1,0 +1,32 @@
+@use './../../../Styles/index.scss' as *;
+
+.btn {
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--green);
+    border: 1px solid transparent;
+    outline: 1px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: opacity .1s ease-in-out;
+    font-size: var(--font-sm);
+
+
+
+    @include tablet {
+        // font-size: var(--font-md);
+    }
+
+    @include mobile {
+        padding: var(--space-xxs) var(--space-xs);
+        // font-size: var(--font-xs);
+    }
+
+    &:hover {
+        opacity: .8;
+    }
+}

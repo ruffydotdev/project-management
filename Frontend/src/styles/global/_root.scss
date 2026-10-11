@@ -1,0 +1,54 @@
+// _root.scss
+@use '../abstracts/index.scss' as cfg;
+
+:root {
+  --font-family: #{cfg.$font-family};
+
+  // Backgrounds & Panels
+  --bg-main: #{cfg.$bg-main};
+  --bg-panel: #{cfg.$bg-panel};
+  --bg-surface-hover: #{cfg.$bg-surface-hover};
+  --bg-subtle: #{cfg.$bg-subtle};
+
+  // Borders
+  --border-color: #{cfg.$border-color};
+  --border-light: #{cfg.$border-light};
+
+  // Typography
+  --text-primary: #{cfg.$text-primary};
+  --text-secondary: #{cfg.$text-secondary};
+  --text-tertiary: #{cfg.$text-tertiary};
+  --text-inverse: #{cfg.$text-inverse};
+
+  // Primary Accent
+  --primary-accent: #{cfg.$primary-accent};
+  --primary-accent-hover: #{cfg.$primary-accent-hover};
+  --primary-accent-subtle: #{cfg.$primary-accent-subtle};
+
+  // Feedback Colors
+  --semantic-success: #{cfg.$semantic-success};
+  --semantic-success-subtle: #{cfg.$semantic-success-subtle};
+  --semantic-warning: #{cfg.$semantic-warning};
+  --semantic-warning-subtle: #{cfg.$semantic-warning-subtle};
+  --semantic-error: #{cfg.$semantic-error};
+  --semantic-error-subtle: #{cfg.$semantic-error-subtle};
+  --semantic-info: #{cfg.$semantic-info};
+  --semantic-info-subtle: #{cfg.$semantic-info-subtle};
+
+  // Spacing (4px / 8px system)
+  --space-xxs: #{cfg.$space-xxs};
+  --space-xs: #{cfg.$space-xs};
+  --space-sm: #{cfg.$space-sm};
+  --space-md: #{cfg.$space-md};
+  --space-lg: #{cfg.$space-lg};
+  --space-xl: #{cfg.$space-xl};
+  --space-xxl: #{cfg.$space-xxl};
+
+  // Radii
+  --radius-sm: #{cfg.$border-radius-sm};
+  --radius-md: #{cfg.$border-radius-md};
+  --radius-lg: #{cfg.$border-radius-lg};
+  --radius-pill: #{cfg.$border-radius-pill};
+
+  --transition-fast: #{cfg.$transition-speed};
+}

@@ -1,0 +1,233 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.profileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  .title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+}
+
+.bannerCard {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg, 12px);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+}
+
+.avatarSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.largeAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-accent, #6366f1) 0%, #4338ca 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.15);
+}
+
+.identityInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .userName {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .userEmail {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    align-items: center;
+  }
+
+  .roleBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+  }
+}
+
+.bannerStats {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+
+  .statItem {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .statLabel {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .statValue {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 360px 1fr;
+  }
+}
+
+.cardSection {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md, 8px);
+  padding: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+
+  .sectionTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  svg {
+    color: var(--primary-accent, #6366f1);
+  }
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .infoLabel {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+
+  .infoValue {
+    font-size: 13px;
+    color: var(--text-primary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .formNotice {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    background: var(--bg-subtle);
+    border: 1px dashed var(--border-color);
+    padding: 12px;
+    border-radius: var(--radius-sm, 6px);
+    line-height: 1.5;
+  }
+
+  .formActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+}
+
+.alertBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm, 6px);
+  font-size: 13px;
+
+  &.success {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #34d399;
+  }
+
+  &.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #f87171;
+  }
+}

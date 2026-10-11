@@ -1,0 +1,102 @@
+ @use './../../../Styles/index.scss' as *;
+
+ .form__textarea {
+     flex: 1;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     gap: var(--space-xs);
+     position: relative;
+
+     &.flex-2 {
+         flex: 2;
+     }
+
+     @include mobile {
+         gap: var(--space-xs);
+     }
+
+     .hint {
+         margin: var(--space-xs) 0;
+     }
+
+
+     .textarea__wrapper {
+         position: relative;
+
+         textarea {
+             width: 100%;
+             resize: none;
+             field-sizing: content;
+             padding: var(--space-md);
+             background-color: transparent;
+             background-color: var(--third-bg);
+             background-color: inherit;
+             border-radius: 2px;
+             border: 1px solid var(--border);
+             outline: 1px solid transparent;
+             color: var(--white);
+             font-size: var(--font-lg);
+
+             &:focus {
+                 outline: 1px solid var(--green);
+             }
+
+             &.warn:focus {
+                 outline: 1px solid red;
+             }
+
+             @include tablet {
+                 padding: var(--space-md);
+                 font-size: var(--font-md);
+             }
+
+             @include mobile {
+                 padding: var(--space-sm);
+                 font-size: var(--font-xs);
+
+             }
+         }
+
+
+     }
+
+     &.warn textarea {
+         outline: 1px solid var(--warn);
+
+         &:focus {
+             outline: 1px solid var(--warn);
+         }
+     }
+
+     .warning {
+         color: var(--red);
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         color: var(--red);
+         width: fit-content;
+         background-color: var(--bg-color);
+         padding: 0 var(--space-xxs);
+         transition: all .3s ease-in-out;
+         opacity: 0;
+         transform: translate(5%, 150%);
+         font-size: var(--font-sm);
+
+         @include tablet {
+             font-size: var(--font-xs);
+         }
+
+         @include mobile {
+             font-size: var(--font-xxs);
+         }
+     }
+
+     &.warn .warning {
+         display: block;
+         transform: translate(5%, 50%);
+         opacity: 1;
+     }
+
+
+ }
