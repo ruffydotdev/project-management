@@ -17,12 +17,15 @@ export const authenticate = async (
 
     if (req.headers.authorization && req.headers.authorization.startsWith("Bearer ")) {
       token = req.headers.authorization.split(" ")[1];
+    } else if (req.cookies?.accessToken) {
+      token = req.cookies.accessToken;
     }
 
     if (!token) {
       return res.status(401).json({
         success: false,
         message: "Authentication token missing. Please log in.",
+        code: "TOKEN_MISSING",
       });
     }
 

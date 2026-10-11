@@ -12,11 +12,19 @@ import {
 import { sendOTPEmail } from "../services/emailService.js";
 import { validateRegisterInput, validateEmail, validateIndianPhoneNumber, formatIndianPhoneNumber } from "../utils/validators.js";
 
-// Cookie configuration for refresh tokens
+// Cookie configuration for tokens
 const isProduction = process.env.NODE_ENV === "production";
 
-const getCookieOptions = () => ({
-  httpOnly: true,
+const getAccessTokenCookieOptions = () => ({
+  httpOnly: false, // Accessible to JS client for Authorization header extraction if needed
+  secure: isProduction,
+  sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
+  maxAge: 15 * 60 * 1000, // 15 minutes (matches access token expiry)
+  path: "/",
+});
+
+const getRefreshTokenCookieOptions = () => ({
+  httpOnly: true, // Secure HttpOnly for maximum protection against XSS
   secure: isProduction,
   sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -24,8 +32,8 @@ const getCookieOptions = () => ({
 });
 
 // Clear cookie options without maxAge (avoids Express deprecation notice)
-const getClearCookieOptions = () => ({
-  httpOnly: true,
+const getClearCookieOptions = (httpOnly = true) => ({
+  httpOnly,
   secure: isProduction,
   sameSite: (isProduction ? "none" : "lax") as "none" | "lax",
   path: "/",
@@ -286,8 +294,9 @@ export const login = async (req, res, next) => {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
 
-    // Set refresh token in HttpOnly cookie
-    res.cookie("refreshToken", refreshToken, getCookieOptions());
+    // Store both tokens in cookies
+    res.cookie("accessToken", accessToken, getAccessTokenCookieOptions());
+    res.cookie("refreshToken", refreshToken, getRefreshTokenCookieOptions());
 
     return res.status(200).json({
       success: true,
@@ -322,7 +331,8 @@ export const refresh = async (req, res, next) => {
     const decoded = verifyRefreshToken(refreshToken);
 
     if (!decoded || !decoded.id) {
-      res.clearCookie("refreshToken", getClearCookieOptions());
+      res.clearCookie("accessToken", getClearCookieOptions(false));
+      res.clearCookie("refreshToken", getClearCookieOptions(true));
       return res.status(401).json({
         success: false,
         message: "Invalid or expired session. Please log in again.",
@@ -332,7 +342,8 @@ export const refresh = async (req, res, next) => {
     const user = await User.findById(decoded.id);
 
     if (!user) {
-      res.clearCookie("refreshToken", getClearCookieOptions());
+      res.clearCookie("accessToken", getClearCookieOptions(false));
+      res.clearCookie("refreshToken", getClearCookieOptions(true));
       return res.status(401).json({
         success: false,
         message: "User account no longer exists.",
@@ -340,7 +351,8 @@ export const refresh = async (req, res, next) => {
     }
 
     if (user.status !== "Active" || !user.isVerified) {
-      res.clearCookie("refreshToken", getClearCookieOptions());
+      res.clearCookie("accessToken", getClearCookieOptions(false));
+      res.clearCookie("refreshToken", getClearCookieOptions(true));
       return res.status(403).json({
         success: false,
         message: "Account is no longer active or verified.",
@@ -351,7 +363,8 @@ export const refresh = async (req, res, next) => {
     const newAccessToken = generateAccessToken(user);
     const newRefreshToken = generateRefreshToken(user);
 
-    res.cookie("refreshToken", newRefreshToken, getCookieOptions());
+    res.cookie("accessToken", newAccessToken, getAccessTokenCookieOptions());
+    res.cookie("refreshToken", newRefreshToken, getRefreshTokenCookieOptions());
 
     return res.status(200).json({
       success: true,
@@ -370,7 +383,8 @@ export const refresh = async (req, res, next) => {
 // POST /api/auth/logout
 export const logout = async (req, res, next) => {
   try {
-    res.clearCookie("refreshToken", getClearCookieOptions());
+    res.clearCookie("accessToken", getClearCookieOptions(false));
+    res.clearCookie("refreshToken", getClearCookieOptions(true));
 
     return res.status(200).json({
       success: true,
