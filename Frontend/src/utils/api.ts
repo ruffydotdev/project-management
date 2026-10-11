@@ -3,8 +3,11 @@ import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5555/api";
 console.log("[EMPMS API Client] Active Base URL:", API_BASE_URL);
 
-// Access token storage (in-memory + localStorage backup across browser reloads)
-let memoryAccessToken: string | null = typeof window !== "undefined" ? localStorage.getItem("empms_access_token") : null;
+// Token storage (in-memory + localStorage backup across browser reloads)
+let memoryAccessToken: string | null =
+  typeof window !== "undefined" ? localStorage.getItem("empms_access_token") : null;
+let memoryRefreshToken: string | null =
+  typeof window !== "undefined" ? localStorage.getItem("empms_refresh_token") : null;
 
 export const setAccessToken = (token: string | null) => {
   memoryAccessToken = token;
@@ -17,7 +20,31 @@ export const setAccessToken = (token: string | null) => {
   }
 };
 
+export const setRefreshToken = (token: string | null) => {
+  memoryRefreshToken = token;
+  if (typeof window !== "undefined") {
+    if (token) {
+      localStorage.setItem("empms_refresh_token", token);
+    } else {
+      localStorage.removeItem("empms_refresh_token");
+    }
+  }
+};
+
+export const setAuthTokens = (accessToken: string | null, refreshToken?: string | null) => {
+  setAccessToken(accessToken);
+  if (refreshToken !== undefined) {
+    setRefreshToken(refreshToken);
+  }
+};
+
+export const clearAuthTokens = () => {
+  setAccessToken(null);
+  setRefreshToken(null);
+};
+
 export const getAccessToken = () => memoryAccessToken;
+export const getRefreshToken = () => memoryRefreshToken;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -87,14 +114,21 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
+        const currentRefreshToken = getRefreshToken();
         const refreshResponse = await axios.post(
           `${API_BASE_URL}/auth/refresh`,
-          {},
-          { withCredentials: true }
+          { refreshToken: currentRefreshToken },
+          {
+            withCredentials: true,
+            headers: currentRefreshToken
+              ? { "x-refresh-token": currentRefreshToken }
+              : undefined,
+          }
         );
 
         const newAccessToken = refreshResponse.data?.data?.accessToken;
-        setAccessToken(newAccessToken);
+        const newRefreshToken = refreshResponse.data?.data?.refreshToken;
+        setAuthTokens(newAccessToken, newRefreshToken);
 
         processQueue(null, newAccessToken);
 
@@ -104,8 +138,8 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshErr) {
         processQueue(refreshErr, null);
-        setAccessToken(null);
-        // Clear memory and redirect on session death
+        clearAuthTokens();
+        // Clear tokens and redirect on session death
         if (window.location.pathname !== "/auth/login" && window.location.pathname !== "/auth/signup") {
           window.location.href = "/auth/login";
         }

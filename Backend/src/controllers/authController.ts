@@ -294,6 +294,7 @@ export const login = async (req, res, next) => {
       message: "Login successful",
       data: {
         accessToken,
+        refreshToken,
         user: user.toSafeObject(),
       },
     });
@@ -305,7 +306,10 @@ export const login = async (req, res, next) => {
 // POST /api/auth/refresh (Stateless: decode and verify JWT, grant new access token)
 export const refresh = async (req, res, next) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+    const refreshToken =
+      req.cookies?.refreshToken ||
+      req.body?.refreshToken ||
+      (req.headers["x-refresh-token"] as string);
 
     if (!refreshToken) {
       return res.status(401).json({
@@ -354,6 +358,7 @@ export const refresh = async (req, res, next) => {
       message: "Token refreshed successfully",
       data: {
         accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
         user: user.toSafeObject(),
       },
     });

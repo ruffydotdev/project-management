@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
-import api, { setAccessToken } from "../../../utils/api";
+import api, { setAuthTokens, clearAuthTokens, getRefreshToken } from "../../../utils/api";
 import type { UserRole } from "../../../lib/data/enums";
 
 export interface User {
@@ -38,12 +38,15 @@ const initialState: AuthState = {
 // Check current session via refresh token on app mount
 export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.post("/auth/refresh");
-    const { accessToken, user } = response.data.data;
-    setAccessToken(accessToken);
+    const currentRefreshToken = getRefreshToken();
+    const response = await api.post("/auth/refresh", {
+      refreshToken: currentRefreshToken,
+    });
+    const { accessToken, refreshToken, user } = response.data.data;
+    setAuthTokens(accessToken, refreshToken);
     return user;
   } catch (err: any) {
-    setAccessToken(null);
+    clearAuthTokens();
     return rejectWithValue(err.response?.data?.message || "Session not found");
   }
 });
@@ -54,8 +57,8 @@ export const loginUser = createAsyncThunk(
   async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const response = await api.post("/auth/login", credentials);
-      const { accessToken, user } = response.data.data;
-      setAccessToken(accessToken);
+      const { accessToken, refreshToken, user } = response.data.data;
+      setAuthTokens(accessToken, refreshToken);
       return user;
     } catch (err: any) {
       return rejectWithValue({
@@ -72,7 +75,7 @@ export const logoutUser = createAsyncThunk("auth/logout", async () => {
   try {
     await api.post("/auth/logout");
   } finally {
-    setAccessToken(null);
+    clearAuthTokens();
   }
 });
 
