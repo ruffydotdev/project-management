@@ -21,6 +21,39 @@ authentication.
 > use an email provider's HTTPS API or hosting that supports SMTP. The
 > deployed database is pre-seeded with demo data.
 
+
+
+## Demo accounts and seeded data
+
+The backend startup log reports that the database is already populated with **26 users and 50 projects**. The seed script defines 1 owner, 3 project managers, and 20 employees. These are development/demo credentials; the default seed password is `Password@123`.
+
+| Role | Name | Email | Default password |
+|---|---|---|---|
+| Owner | Angela Vance | `owner@empms.com` | `Password@123` |
+| Project Manager | Marcus Wright | `pm.marcus@empms.com` | `Password@123` |
+| Project Manager | Elena Rostova | `pm.elena@empms.com` | `Password@123` |
+| Project Manager | David Kim | `pm.david@empms.com` | `Password@123` |
+| Employee | Liam Smith | `liam.smith@empms.com` | `Password@123` |
+| Employee | Noah Brown | `noah.brown@empms.com` | `Password@123` |
+| Employee | Oliver Miller | `oliver.miller@empms.com` | `Password@123` |
+| Employee | James Martinez | `james.martinez@empms.com` | `Password@123` |
+| Employee | Elijah Gonzalez | `elijah.gonzalez@empms.com` | `Password@123` |
+| Employee | William Taylor | `william.taylor@empms.com` | `Password@123` |
+| Employee | Lucas Jackson | `lucas.jackson6@empms.com` | `Password@123` |
+| Employee | Henry White | `henry.white7@empms.com` | `Password@123` |
+| Employee | Alexander Lewis | `alexander.lewis8@empms.com` | `Password@123` |
+| Employee | Mason Clark | `mason.clark9@empms.com` | `Password@123` |
+| Employee | Emma Smith | `emma.smith10@empms.com` | `Password@123` |
+| Employee | Olivia Brown | `olivia.brown11@empms.com` | `Password@123` |
+| Employee | Ava Miller | `ava.miller12@empms.com` | `Password@123` |
+| Employee | Sophia Martinez | `sophia.martinez13@empms.com` | `Password@123` |
+| Employee | Isabella Gonzalez | `isabella.gonzalez14@empms.com` | `Password@123` |
+| Employee | Mia Taylor | `mia.taylor15@empms.com` | `Password@123` |
+| Employee | Amelia Jackson | `amelia.jackson16@empms.com` | `Password@123` |
+| Employee | Harper White | `harper.white17@empms.com` | `Password@123` |
+| Employee | Evelyn Lewis | `evelyn.lewis18@empms.com` | `Password@123` |
+| Employee | Abigail Clark | `abigail.clark19@empms.com` | `Password@123` |
+
 ## Features
 
 ### Authentication and security
